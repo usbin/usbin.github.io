@@ -5,7 +5,6 @@ date: '2022-06-10T08:00:00.001-07:00'
 author: 가도
 categories: [cs공부]
 modified\_time: '2022-08-12T00:53:38.562-07:00'
-blogger\_id: tag:blogger.com,1999:blog-778891705567453961.post-1011547443174258950
 blogger\_orig\_url: https://sealbinary.blogspot.com/2022/06/c-c-consoleread-consolereadline.html
 ---
 
