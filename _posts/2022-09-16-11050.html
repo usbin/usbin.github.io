@@ -1,0 +1,174 @@
+---
+layout: post
+title: 백준 알고리즘 11050번 - 이항계수
+date: '2022-09-16T04:02:00.003-07:00'
+author: 가도
+tags:
+- 자료구조/알고리즘
+- C-plusplus
+modified_time: '2022-09-16T04:02:50.510-07:00'
+thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEh8FIAe5zAsm30DgAkJ6HkkAO8yXCuDo3o__CMfHwjSZfdOzWqdOaUeY9JMxJ7tpiPjmu5YEzk2FsHbC75DnQDxtE_68J1mhB_xfAFLTQRNLZbEZ40UCoFoHpkT-X6aOfkzxP6MVrLT5ToxqeZtEK370FkRkhpszux3YyPwkkiQ0ii9kjXgnxuFpUNtCQ=s72-c
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-5073327364625568568
+blogger_orig_url: https://sealbinary.blogspot.com/2022/09/11050.html
+---
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEh8FIAe5zAsm30DgAkJ6HkkAO8yXCuDo3o__CMfHwjSZfdOzWqdOaUeY9JMxJ7tpiPjmu5YEzk2FsHbC75DnQDxtE_68J1mhB_xfAFLTQRNLZbEZ40UCoFoHpkT-X6aOfkzxP6MVrLT5ToxqeZtEK370FkRkhpszux3YyPwkkiQ0ii9kjXgnxuFpUNtCQ" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="769" data-original-width="729" src="https://blogger.googleusercontent.com/img/a/AVvXsEh8FIAe5zAsm30DgAkJ6HkkAO8yXCuDo3o__CMfHwjSZfdOzWqdOaUeY9JMxJ7tpiPjmu5YEzk2FsHbC75DnQDxtE_68J1mhB_xfAFLTQRNLZbEZ40UCoFoHpkT-X6aOfkzxP6MVrLT5ToxqeZtEK370FkRkhpszux3YyPwkkiQ0ii9kjXgnxuFpUNtCQ=s16000" /></a></div><br />
+
+
+<pre class="markdown">백준 11050번 이항계수(https://www.acmicpc.net/problem/11050)
+
+### 1. 이항계수란?
+
+이항계수 (N K)는 두 가지 선택지가 N번 주어졌을 때, 한가지를 K번 선택할 경우의 수를 말한다.
+A, B, C, D, E 5명의 사람들 중 2명을 뽑는다고 한다면, 이는 사람을 5번 뽑거나 뽑지 않거나를 선택할 기회에서 2번 "뽑는다"를 선택했다는 걸 뜻한다.
+경우의 수는 일단 AB, AC, AD, AE, BC, BD, BE, CD, CE, DE 10가지가 된다.
+이것을 이항계수 (5 2) 또는 5C2로 표현하고, 구하는 공식은 N!/(N-K)!K! 이다.
+
+&gt; N이 5, K가 2이므로 5!/3!2! = 5x4x3x2/3x2x2 = 10
+
+또한 이항계수는 (x+1)의 거듭제곱을 풀었을 때 계수로도 표현될 수 있다.
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhHTsadWF8E5EhT5lhmyMSN3MbviJtGETTWxnD-XK3YwRcPTqqNWbpHbuY-nQc7I61gWfxGc-sOw_SyWNTMmOyjzeyyV0QK6wEi28MNrdVvwdBvt7KDZinmLevtTn1z9pQ44qAPBK-xlRZn_YVeNjUtUOOK6zi8RmBNN0jHjtQk7PVQ6zZXbbP32WZbDg" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="900" data-original-width="1440" height="400" src="https://blogger.googleusercontent.com/img/a/AVvXsEhHTsadWF8E5EhT5lhmyMSN3MbviJtGETTWxnD-XK3YwRcPTqqNWbpHbuY-nQc7I61gWfxGc-sOw_SyWNTMmOyjzeyyV0QK6wEi28MNrdVvwdBvt7KDZinmLevtTn1z9pQ44qAPBK-xlRZn_YVeNjUtUOOK6zi8RmBNN0jHjtQk7PVQ6zZXbbP32WZbDg=w640-h400" width="640" /></a></div><br />
+<pre class="markdown">어디서 많이 본 삼각형, 파스칼의 삼각형이 나온다.
+
+(x+1)의 거듭제곱의 계수가 이항계수 규칙을 따르는 이유는 x와 1 둘 중 하나를 선택하는 "이항" 환경이 주어지기 때문이다.
+
+(x+1)(x+1)를 펼쳐보면 x\*x + x\*1 + 1\*x + 1\*1이 되는데, 이는 결국
+x\*x는 [x를 2개 고르고 1을 0개 고른 경우의 수],
+x\*1은 [x를 1개 고르고 1을 1개 고른 경우의 수],
+1\*1은 [x를 0개 고르고 1을 2개 고른 경우의 수]를 뜻한다.
+
+여기서는 선택의 기회가 (x+1)(x+1) 두 번 곱하기 때문에 2회, 즉 N=2
+그리고 K는 x 또는 1을 선택한 개수가 된다.
+
+파스칼의 삼각형은 0행 0열부터 시작한다. 0행은 아무 선택지도 없을 경우기 때문에 그냥 1이고, i행의 0열은 i개 중 아무것도 선택하지 않았을 경우의 수이므로 1이다.
+그러니 i행 j열이 뜻하는 건,
+선택의 기회가 i번 있었을 때 j번 선택했을 경우의 수이다.
+(선택지가 '선택하거나' '선택하지 않거나' 두 개이기 때문에 선택지 중 하나를 j번 골랐다는 건 결국 고르지 않은 쪽을 (i-j)번 골랐다는 뜻과 같다.)
+<span><a name='more'></a></span>
+### 2. 접근하기
+
+문제에서 요구하는 건 이항계수 (N K), 즉 N번의 선택의 기회가 있었을 때 K번 선택했을 경우의 수이다.
+
+정석대로 풀면 (N!/(N-K)!K!)로 풀어야 하는데, 팩토리얼 계산은 시간복잡도가 너무 높은 연산이라 시간초과가 난다. O(n!)은 무조건 피해야할 지수연산보다도 시간복잡도가 높은 연산이다.
+그러나 파스칼의 삼각형을 만들어서 풀면 (N*K/2) 시간 안에 풀 수 있다. O(n^2)이다. 시간복잡도가 확 줄어든다.
+
+파스칼의 삼각형 i행 j열의 값을 bin(i, j)라고 했을 때,
+j가 0이거나 i와 j가 같을 땐(삼각형의 테두리) 값이 1이고,
+그 외엔 bin(i-1, j-1) + bin(i-1, j)와 같다.
+
+&gt; 파스칼의 삼각형을 보면 위와 왼쪽 위의 값을 더해서 아래 값이 나오는 걸 확인할 수 있다.
+이론적으로 생각해도 N개 중 K개를 고르는 경우의 수는 
+(1) 하나를 선택한 상태인 (N-1)개 중에서 (K-1)개를 고르는 경우의 수와 하나를 선택하지 않은 상태인 (N-1)개 중에서 K개를 고르는 경우의 수를 더한 것과 같다.
+
+아무튼 그냥
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEiNBsYkpANQkZE0JYLlvcVks1tI8NpgLg-q2suOFUAfviJU1zLZoO_ms_5UmjsiGcenLCnbdK3E_FzcVok0-E8ZMNX_Wbvzk2ZSzFYAtoFziuxujkhATm_F-izGJs0F0tdXI224C5Z1O5RkG2ZEb_aD2vO-2-jfECp5lW1JPYbiCndH8sayirooRRoH2g" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="364" data-original-width="1413" height="164" src="https://blogger.googleusercontent.com/img/a/AVvXsEiNBsYkpANQkZE0JYLlvcVks1tI8NpgLg-q2suOFUAfviJU1zLZoO_ms_5UmjsiGcenLCnbdK3E_FzcVok0-E8ZMNX_Wbvzk2ZSzFYAtoFziuxujkhATm_F-izGJs0F0tdXI224C5Z1O5RkG2ZEb_aD2vO-2-jfECp5lW1JPYbiCndH8sayirooRRoH2g=w640-h164" width="640" /></a></div><br /><br /></div><br />
+<pre class="markdown">이걸 외워놓자.
+
+참고로 파스칼 삼각형을 저장해서 이항계수를 구하는 게 **동적계획법**에 속하는 알고리즘이라고 한다.
+
+**동적계획법**이란 가장 작은 단위부터 연산해서 이전 결과값을 저장하면서 상향식으로 문제를 해결하는 알고리즘이라고 한다.
+그리고 동적계획법이 코딩테스트의 단골주제라고, 아주 중요한 알고리즘이라고 하니 연습 많이 하고 외워둬야 할 듯 싶다.
+
+동적계획법과 분할정복법이 많이 헷갈리는데, 작은 단위부터 계산해서 상향식으로 결과를 만들어나가는 게 동적계획법이고 큰 단위를 쪼개면서 하향식으로 결과를 만들어나가는 게 분할정복법이라고 한다.
+
+동적계획법으로는 재귀함수 또는 배열에 저장하며 만든 피보나치수열과 이 문제의 이항계수가 있고,
+분할정복법으로는 합병정렬, 퀵정렬이 있다.
+
+### 3. 로직 세우기
+
+1. N, K를 입력받은 다음
+2. Bin 배열에 N+1행, K+1열까지 파스칼의 삼각형을 만들고(0부터 N까지, 0부터 K까지므로)
+3. Bin[N][K]를 출력한다.
+
+간단하게 생각하면 이건데... 2번에서 생각해야 할 게 본래 파스칼의 삼각형은 좌우대칭이기 때문에 i가 0부터 N까지일 때, i행은 i열까지 있다.
+근데 우린 0~N행의 0~K열까지만 알면 된다. K+1열부터는 알 필요가 없다.
+따라서 i와 K 중 min값을 구해서 그 열까지만 구해주면 된다.
+
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjBNZaeueKpZ-G0IWIQ5gLs2tv4DpjRYQnpcHlJciKzbjVJRWQ00iJLxpZPPLPimZHIUpSDQuRSRmWNy_9-HFohky66XVtYhY4Lf8BnaEW1WGwtLdkiPfL739DKlaMx76M3IWDpbLenK16jV7J8uFqN5wWOXOkgbWVU09LMntl-P3-mWNJ8EXFK9AGSCg" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="895" data-original-width="858" height="400" src="https://blogger.googleusercontent.com/img/a/AVvXsEjBNZaeueKpZ-G0IWIQ5gLs2tv4DpjRYQnpcHlJciKzbjVJRWQ00iJLxpZPPLPimZHIUpSDQuRSRmWNy_9-HFohky66XVtYhY4Lf8BnaEW1WGwtLdkiPfL739DKlaMx76M3IWDpbLenK16jV7J8uFqN5wWOXOkgbWVU09LMntl-P3-mWNJ8EXFK9AGSCg=w383-h400" width="383" /></a></div><br />
+<pre class="markdown">### 4. 소스코드
+
+```c++
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+int main(){
+    int N, K;
+    std::cin&gt;&gt;N&gt;&gt;K;
+    
+    //1. N+1행, K+1열을 갖는 2차원 배열 선언.
+    //2. i는 0부터 N까지, j는 0부터 K까지 순회.
+    //3. 항상 K&lt;=N이므로, j는 항상 i와 같거나 작음.
+    //4. j가 0이거나 j==i일 때는 1, 그 외엔 bin(i-1, j-1)+bin(i-1,j)로 채워줌.
+    int** bin = new int*[N+1];
+    for(int i=0; i&lt;N+1; i++){
+        bin[i] = new int[std::min(i, K)+1];
+        for(int j=0; j&lt;std::min(i, K)+1; j++){
+            //할당과 동시에 초기화
+            if(j==0 || i==j){
+                bin[i][j] = 1;
+            }
+            else{
+                bin[i][j] = bin[i-1][j]+bin[i-1][j-1];
+            }
+        }
+    }
+    
+    std::cout&lt;&lt;bin[N][K];
+    
+    //동적할당 해제
+    for(int i=0; i&lt;N+1; i++){
+        delete[] bin[i];
+    }
+    delete[] bin;
+    
+}
+```
+이렇게 하면 일단은 된다.
+
+근데 이거보다 좀더 개선할 수 있다.
+지금 2차원 배열을 쓰고 있는데, 이전 행은 계산이 끝난 후에 보존할 필요가 없다.
+행이 1개여도 새 행으로 값을 더해서 덧씌우며 계산하면 되기 때문에 1차원 배열로도 풀 수 있다.
+
+대신 매 행마다 열이 +1씩 증가하므로, 이 증가한 한 칸부터 채워넣어야 이전 값을 덮어씌우지 않으면서 새 값을 먼저 저장할 수 있다.
+
+### 5. 소스코드(개선)
+```c++
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+
+int main(){
+    int N, K;
+    std::cin&gt;&gt;N&gt;&gt;K;
+    
+    //1차원 배열로 풀어보기
+    //N행의 K열의 값을 구해야함.
+    //행과 열은 0부터 시작함을 기억.
+    //결과적으로 0부터 N까지 N+1개의 행과 0부터 K까지 K+1칸의 열을 계산하게 됨.
+    //
+    //최종 결과를 저장하기 위해선 K+1칸의 열이 필요함.
+    int* bin = new int[K+1];
+    
+    
+    for(int i=0; i&lt;=N; i++){
+        for(int j=std::min(i, K); j&gt;=0; j--){
+            if(j==0 || j==i) bin[j] = 1;
+            else{
+                bin[j] = bin[j]+bin[j-1];
+            }
+        }
+    }
+    
+    
+    std::cout&lt;&lt;bin[K];
+    
+    
+    delete[] bin;
+}
+```
+
+코드가 훨씬 짧고 공간 소모도 N배 줄었다.
+
+
+</pre>

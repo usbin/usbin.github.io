@@ -1,0 +1,149 @@
+---
+layout: post
+title: "[CS 공부] I. 메모리 - 고정 블록 메모리풀(C++ 구현) (22.08.17 수정)"
+date: '2022-08-16T06:36:00.039-07:00'
+author: 가도
+tags:
+- CS공부
+- C-plusplus
+modified_time: '2022-08-16T23:03:08.744-07:00'
+thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEhiWSDFIrgKa9Gmj4urvqX1yPZx3yjElBhEAvSvyVxinSaWUfDwkRGBgipGufarQgUGT8HLxLWHAVzoIC8yErvOWADAbDaJqZZd83z6P-nzYElPh1GPQD0DoEtMxuspHT1VnWg0PG42QzVH2ecBIszgDYFSb6lqMN1R9ovRu50WHPUUlTNP3wWVtIPs2g=s72-w640-c-h276
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-8003875218551484658
+blogger_orig_url: https://sealbinary.blogspot.com/2022/08/cs-i-c.html
+---
+
+<pre class="markdown">지난번 포스팅에서 메모리풀을 이론적으로 공부했었다.</pre><pre class="markdown">오늘은 메모리풀을 직접 구현해보려 한다.</pre><pre class="markdown"><br /></pre><pre class="markdown">풀의 크기와 블록의 크기 모두 고정으로 구현했다.</pre>(<a href="https://github.com/SnowFleur/2020-Pool-Patterns">이 깃헙 소스</a>를 참고함)<pre class="markdown"></pre><span><a name='more'></a></span><pre class="markdown"><br /></pre>
+<pre class="markdown">```c++
+//Program.cpp
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include "MemoryPool.h"
+#include &lt;time.h&gt;
+#define STATIC_MEMORY_POOL
+
+constexpr int MAX_LOOP = 1000000;
+constexpr int POOL_SIZE = 1000;
+
+constexpr int BLOCK_SIZE = 100;
+constexpr int ALLOC_SIZE = 100;
+void usePool() {
+	MemoryPool pool(POOL_SIZE, BLOCK_SIZE);
+	for (int i = 0; i &lt; MAX_LOOP; i++) {
+		void* memory = pool.allocate(ALLOC_SIZE);
+		pool.deallocate(memory);
+	}
+	pool.clear();
+}
+void notUsePool() {
+	for (int i = 0; i &lt; MAX_LOOP; i++) {
+		void* memory = (void*)malloc(ALLOC_SIZE);
+		free(memory);
+	}
+}
+int main() {
+	clock_t start, end;
+	double time;
+	try {
+		start = clock();
+		usePool();
+		end = clock();
+		time = static_cast&lt;double&gt;(end - start) / 1000;
+		std::cout &lt;&lt; "메모리풀 사용: " &lt;&lt; time &lt;&lt; "s\n";
+
+
+		start = clock();
+		notUsePool();
+		end = clock();
+		time = static_cast&lt;double&gt;(end - start) / 1000;
+		std::cout &lt;&lt; "메모리풀 사용 안 함: " &lt;&lt; time &lt;&lt; "s";
+	}
+	catch (std::bad_alloc) {
+		std::cout &lt;&lt; "Error: bad_alloc\n";
+	}
+
+
+	
+
+}
+```
+```c++
+
+#include &lt;list&gt;
+#include &lt;iostream&gt;
+#include "MemoryPool.h"
+
+//고정된 크기의 메모리풀을 가짐.
+//메모리의 첫번째 4바이트엔 다음 주소가 저장됨. 없으면 0.
+
+
+MemoryPool::MemoryPool(int poolSize, int blockSize) {
+	_poolSize = poolSize;
+	_blockSize = blockSize;
+	
+	_freeBlockPtr = malloc(_poolSize);
+	_HEAD = _freeBlockPtr;
+	//모든 블록의 가장 앞 4바이트가 다음 free block을 가리키게 초기화함.
+	void** cursor = reinterpret_cast&lt;void**&gt;(_freeBlockPtr);
+	for (int i = 0; i &lt; capacity()-1; i++) {
+		(*cursor) = cursor + _blockSize/sizeof(void*); //void* 포인터는 4바이트기 때문에 void* 포인터의 연산은 4바이트 단위로 됨. 따라서 void*의 크기만큼 나눠줘야함.
+		cursor+=_blockSize/sizeof(void*); //다음 블록으로 커서 이동
+	}
+
+	//마지막 포인터는 NULL
+	(*cursor) = NULL;
+}
+int MemoryPool::capacity() {
+	return  _poolSize/ _blockSize;
+}
+void* MemoryPool::allocate(int size) {
+	//블록 크기보다 큰 사이즈를 할당받으려 하면 예외 반환
+	if (size &gt; _blockSize) {
+		std::cout &lt;&lt; "메모리풀 블록 사이즈보다 큰 영역이 요구됨!\n";
+		throw std::bad_alloc();
+	}
+
+	//남아있는 freeblock이 없으면 예외 반환
+	void** ptr = reinterpret_cast&lt;void**&gt;(_freeBlockPtr);
+	if (ptr == NULL) {
+		std::cout &lt;&lt; "메모리풀이 꽉 참!\n";
+		throw std::bad_alloc();
+	}
+
+
+	//freeBlockPtr을 리턴하고 freeBlockSize만큼 포인터 이동.
+	_freeBlockPtr = (*ptr);
+	return reinterpret_cast&lt;void*&gt;(ptr);
+}
+void MemoryPool::deallocate(void* ptr) {
+	//ptr은 반환할 위치를 가리키고 있음.
+	//현재 _freeBlockPtr 주소를 nextFreeBlock으로 저장.
+	//_freeBlockPtr이 ptr과 같은 걸 가리키도록 하고, _freeBlockPtr이 가리키는 값의 첫 4바이트에 nextFreeBlock을 저장
+	if (ptr == NULL) return;
+	void* nextFreeBlock = ptr;
+	_freeBlockPtr = ptr;
+	*(reinterpret_cast&lt;void**&gt;(_freeBlockPtr)) = nextFreeBlock;
+	
+}
+void MemoryPool::clear() {
+	free(_HEAD);
+	_freeBlockPtr = NULL;
+}
+
+```
+```c++
+//MemoryPool.h
+class MemoryPool{
+private:
+	int _poolSize;
+	int _blockSize;
+	void* _freeBlockPtr;
+	void* _HEAD;
+public:
+	MemoryPool(int poolSize, int blockSize);
+	void* allocate(int size);
+	void deallocate(void* ptr);
+	int capacity();
+	void increasePool();
+	void clear();
+};
+```</pre><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhiWSDFIrgKa9Gmj4urvqX1yPZx3yjElBhEAvSvyVxinSaWUfDwkRGBgipGufarQgUGT8HLxLWHAVzoIC8yErvOWADAbDaJqZZd83z6P-nzYElPh1GPQD0DoEtMxuspHT1VnWg0PG42QzVH2ecBIszgDYFSb6lqMN1R9ovRu50WHPUUlTNP3wWVtIPs2g" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="163" data-original-width="377" height="276" src="https://blogger.googleusercontent.com/img/a/AVvXsEhiWSDFIrgKa9Gmj4urvqX1yPZx3yjElBhEAvSvyVxinSaWUfDwkRGBgipGufarQgUGT8HLxLWHAVzoIC8yErvOWADAbDaJqZZd83z6P-nzYElPh1GPQD0DoEtMxuspHT1VnWg0PG42QzVH2ecBIszgDYFSb6lqMN1R9ovRu50WHPUUlTNP3wWVtIPs2g=w640-h276" width="640" /></a></div><br /><pre class="markdown">메모리풀을 사용할 때가 메모리풀을 사용하지 않을 때보다 약 10배 정도 빠르다.<div>다만 이 코드는 필요한 메모리 사이즈가 블록 사이즈보다 크면 쓸 수 없고, 메모리 풀이 꽉 차도 쓸 수 없다는 단점이 있다.</div><div>전자는 비슷한 크기의 객체를 다루는 데 주로 사용하니 상관없지만 후자는 좀 치명적이다...</div><div>메모리풀을 무작정 크게 잡기엔 메모리 낭비가 심하고, 작게 잡으면 런타임 중에 메모리풀이 꽉 찰 가능성이 있<span style="font-size: medium;">다.</span></div><div><span style="font-size: medium;"><br /></span></div><div><span style="font-size: medium;">꽉 찰 경우 MAX_CAPACITY까지 자동으로 확장되는 가변 메모리풀을 만들려 시도해봤는데 계속 런타임 에러가 난다...</span></div><div><span style="font-size: medium;">이 문제를 해결해서 구현에 성공하면 포스팅할 예정.</span></div></pre>

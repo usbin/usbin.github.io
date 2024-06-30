@@ -1,0 +1,337 @@
+---
+layout: post
+title: 'Direct X로 간단한 게임 만들기 - III. 게임엔진 : 플레이어, 몬스터와 발사체, 키입력 인라인 함수'
+date: '2022-09-08T02:06:00.008-07:00'
+author: 가도
+tags:
+- 포트폴리오_DirectX
+modified_time: '2023-01-24T22:49:10.493-08:00'
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-3310280034906801351
+blogger_orig_url: https://sealbinary.blogspot.com/2022/09/direct-x-ii-2-win32-8.html
+---
+
+<pre class="markdown">
+> 목차
+[1. 플레이어, 몬스터, 발사체](#user-content-1-플레이어-몬스터-발사체)
+[2. 발사체 삭제 관리](#user-content-2-발사체-삭제-관리)
+[3. 키입력 인라인 함수](#user-content-3-키입력-인라인-함수)
+
+
+### 1. 플레이어, 몬스터, 발사체
+
+플레이어, 몬스터, 발사체 모두 GObject를 상속할 것이다.
+
+(1) 플레이어
+
+```c++
+//Player.h
+#pragma once
+#include "GObject.h"
+
+class Player : public GObject
+{
+public:
+	Player() {};
+	~Player() {};
+	void Update() override;
+	void Render(HDC hdc) override;
+};
+```
+```c++
+//Player.cpp
+#include "pch.h"
+#include "Player.h"
+
+#include "KeyManager.h"
+#include "Time.h"
+#include "Missile.h"
+#include "SceneManager.h"
+
+void Player::Update()
+{
+	Vector2 v = get_pos();
+	if (KEY_HOLD(KEY::D)
+		|| KEY_HOLD(KEY::RIGHT)) {
+		v.x += static_cast&lt;float&gt;(.2 * Time::GetInstance()-&gt;dt_f());
+
+	}
+	if (KEY_HOLD(KEY::A)
+		|| KEY_HOLD(KEY::LEFT)) {
+		v.x -= static_cast&lt;float&gt;(.2 * Time::GetInstance()-&gt;dt_f());
+
+	}
+	if (KEY_HOLD(KEY::W)
+		|| KEY_HOLD(KEY::UP)) {
+		v.y -= static_cast&lt;float&gt;(.2 * Time::GetInstance()-&gt;dt_f());
+
+	}
+	if (KEY_HOLD(KEY::S)
+		|| KEY_HOLD(KEY::DOWN)) {
+		v.y += static_cast&lt;float&gt;(.2 * Time::GetInstance()-&gt;dt_f());
+
+	}
+	set_pos(v);
+
+	if (KEY_DOWN(KEY::SPACE)) {
+		Missile* m = new Missile();
+		Vector2 pos = get_pos();
+		m-&gt;set_pos(pos);
+		m-&gt;set_rect(Rect2{pos.x-2, pos.y-2, pos.x+2, pos.y+2 });
+		m-&gt;set_speed(.4f);
+		m-&gt;set_direction(Vector2{0, -1});
+		m-&gt;set_group_type(GROUP_TYPE::MISSILE);
+		SceneManager::GetInstance()-&gt;get_current_scene()-&gt;AddGObject(m, GROUP_TYPE::MISSILE);
+	}
+
+}
+
+void Player::Render(HDC hdc)
+{
+	Rect2 rect = get_rect();
+	Rectangle(hdc, static_cast&lt;int&gt;(rect.left), static_cast&lt;int&gt;(rect.top), static_cast&lt;int&gt;(rect.right), static_cast&lt;int&gt;(rect.bottom));
+}
+
+```
+방향키나 WASD를 이용해 움직이고 스페이스바를 누르면 위쪽 방향으로 날아가는 미사일을 생성한다.
+<span><a name='more'></a></span>
+(2) 몬스터
+
+```c++
+//Monster.h
+#pragma once
+#include "GObject.h"
+
+class Monster : public GObject
+{
+private:
+	float move_speed_;
+	Vector2 center_pos_;
+	float move_range_;
+	int direction_; //-1왼 1오
+public:
+	Monster();
+	~Monster();
+	void Update() override;
+	void Render(HDC hdc) override;
+	inline void set_move_speed(float speed) { move_speed_ = speed; };
+	inline void set_center_pos(Vector2 pos) { center_pos_ = pos; };
+	inline void set_move_range(float range) { move_range_ = range; };
+
+};
+
+
+```
+```c++
+//Monster.cpp
+#include "pch.h"
+#include "Monster.h"
+#include "Time.h"
+Monster::Monster()
+	: move_speed_(.2f)
+	, center_pos_(Vector2{0,0})
+	, direction_(-1)
+	, move_range_(0){
+
+}
+Monster::~Monster() {};
+void Monster::Update()
+{
+	//매 프레임 center-100에 도달할 때까지 pos.x-= move_speed_*dt
+	//도달하면 center+100에 도달할 때까지 posx+= move_speed_*dt
+
+	Vector2 pos = get_pos();
+	if (abs(center_pos_.x - pos.x) &gt; move_range_) {
+		//가장자리로 바로잡기
+		pos.x = center_pos_.x + direction_ * move_range_;
+		direction_ *= -1;
+	}
+	pos.x = static_cast&lt;float&gt;(static_cast&lt;double&gt;(pos.x) + direction_ * min(move_speed_ * Time::GetInstance()-&gt;dt_f(), move_speed_));
+	set_pos(pos);
+}
+
+void Monster::Render(HDC hdc) {
+	Rect2 rect = get_rect();
+	Rectangle(hdc
+		, static_cast&lt;int&gt;(rect.left)
+		, static_cast&lt;int&gt;(rect.top)
+		, static_cast&lt;int&gt;(rect.right)
+		, static_cast&lt;int&gt;(rect.bottom));
+}
+
+```
+
+몬스터는 중심 위치를 기준으로 좌우로 정해진 거리만큼 움직인다.
+
+
+(3) 미사일
+
+```c++
+//Missile.h
+#pragma once
+#include "GObject.h"
+
+class Missile : public GObject
+{
+private:
+	Vector2 direction_;
+	float speed_;
+public:
+	Missile()
+		: direction_(Vector2{ 0, 0 })
+		, speed_(0.2f) {};
+	~Missile() {};
+	void Update() override;
+	void Render(HDC hdc) override;
+
+	inline void set_direction(const Vector2&amp; v) { direction_ = v; };
+	inline void set_speed(float speed) { speed_ = speed; };
+};
+
+
+```
+```c++
+//Missile.cpp
+#include "pch.h"
+#include "Missile.h"
+#include "Time.h"
+#include "Core.h"
+#include "SceneManager.h"
+
+void Missile::Update()
+{
+
+	Vector2 pos = get_pos();
+	//화면을 벗어나면 소멸
+	if (pos.x &lt; 0 || pos.y &lt; 0
+		|| Core::GetInstance()-&gt;get_pt_resolution().x &lt; pos.x || Core::GetInstance()-&gt;get_pt_resolution().y &lt; pos.y) {
+		SceneManager::GetInstance()-&gt;get_current_scene()-&gt;RemoveGObject(this, get_group_type());
+	}
+
+	//direction 방향으로 speed_*dt만큼 날아감
+	pos.x += static_cast&lt;float&gt;(static_cast&lt;double&gt;(direction_.x) * speed_ * Time::GetInstance()-&gt;dt_f());
+	pos.y += static_cast&lt;float&gt;(static_cast&lt;double&gt;(direction_.y) * speed_ * Time::GetInstance()-&gt;dt_f());
+	set_pos(pos);
+
+
+}
+
+void Missile::Render(HDC hdc)
+{
+	Ellipse(hdc
+		, static_cast&lt;int&gt;(get_rect().left)
+		, static_cast&lt;int&gt;(get_rect().top)
+		, static_cast&lt;int&gt;(get_rect().right)
+		, static_cast&lt;int&gt;(get_rect().bottom));
+}
+
+```
+미사일은 초기에 설정한 direction 방향으로 날아가는 발사체이다.
+화면 밖으로 나가면 사라진다.
+
+
+### 2. 발사체 삭제 관리
+
+이때 화면 밖으로 날아가면 호출되는 RemoveGObejct의 구현은 이러한데
+```c++
+//Scene.cpp
+void Scene::AddGObject(GObject* object, GROUP_TYPE type)
+{
+	gobjects_[static_cast&lt;int&gt;(type)].insert(object);
+}
+
+void Scene::RemoveGObject(GObject* object, GROUP_TYPE type)
+{
+	delete_queue_.push(std::make_pair(object, type));
+}
+
+```
+
+Add는 바로 해주지만 Remove는 delete_queue_라는 것에 넣어준다.
+delete_queue_는 GObject*와 GROUP_TYPE의 pair가 들어가있는 큐인데, Scene의 Update 함수에서
+
+
+```c++
+void Scene::Update()
+{
+	for (int group = 0; group &lt; static_cast&lt;int&gt;(GROUP_TYPE::END); group++) {
+		for (auto gobject : gobjects_[group]) {
+			gobject-&gt;Update();
+		}
+	}
+
+	//예약된 Delete 한번에 처리
+	DeleteQueueObjects();
+	
+}
+void Scene::DeleteQueueObjects()
+{
+	while (!delete_queue_.empty()) {
+		std::pair&lt;GObject*, GROUP_TYPE&gt; pair = delete_queue_.front();
+		gobjects_[static_cast&lt;int&gt;(pair.second)].erase(pair.first);
+		delete pair.first;
+
+		delete_queue_.pop();
+	}
+	
+}
+
+```
+업데이트가 모두 끝난 후 이 큐에 든 것들을 일괄 삭제해준다.
+
+이렇게 한 이유는 STL을 순회 중에 안의 데이터를 삭제하면 에러가 나기 때문이다.
+
+화면을 벗어난 미사일의 Update() 안에서 삭제 구문이 일어나는데, 이 코드는 Scene의 Update()함수 안에서 gobjects_를 순회 중에 호출이 된다.
+그런데 STL 컨테이너는 순회 중에 멤버 삭제를 하면 안 된다.
+
+모든 씬에 대하여 (scenes_ 순회)
+: 씬의 gobjects_에 대하여 (gobjects_ 순회)
+	: Update() (여기서 gobjects_의 항목 삭제 일어남)
+
+대충 위와 같은 이유로 문제가 발생한다는 소리다.
+
+그럼 생각나는 해결법은 
+
+1. 미사일이 본인을 삭제하도록 하지 않고 씬이 순회가 끝난 후에 화면을 벗어난 오브젝트를 체크하고 일괄 삭제해줌
+2. 미사일이 본인을 삭제하도록 "씬에게 요청"하고 씬은 순회가 끝난 후에 삭제할 항목을 일괄 삭제해줌
+
+1번의 경우, 화면을 벗어나도 삭제되면 안 되는 경우가 있을 것 같아서 일단 패스하고 2번으로 해결해주었다.
+
+삭제할 오브젝트와 타입을 저장할 queue를 만들고, 외부에서 RemoveGObject를 호출하면 바로 삭제하는 게 아니라 이 큐에 넣는 것으로 고쳐준다.
+내부에서 Update()의 순회가 끝나면 일괄 삭제한다.
+
+
+
+### 3. 키입력 인라인 함수
+
+지금 키입력을
+```c++
+KeyManager::GetInstance()-&gt;get_key_state(KEY::UP) == KEY_STATE::DOWN
+```
+이런 식으로 써왔는데 코드가 너무 길어서 이 부분도 줄였다.
+
+강의에선 매크로를 썼지만 매크로로 인한 에러가 발생할 경우 컴파일 단계에서 에러를 잡지 못해서 한참 삽질하게 되고
+하여간 이런저런 이유로 매크로 함수 사용을 지양하라고 하길래 매크로 함수를 대체할 수 있는 인라인 함수를 썼다.
+
+매크로는 전처리기가 글자를 교체하는 거라서 컴파일러가 에러를 못 잡지만 인라인 함수는 컴파일 단계에서 교체되기 때문에 컴파일러가 에러를 잡는다고 한다.
+
+inline.h라는 함수를 새로 정의해주고
+
+```c++
+#pragma once
+#include "KeyManager.h"
+
+inline bool KEY_CHECK(KEY key, KEY_STATE state) { return KeyManager::GetInstance()-&gt;get_key_states(key) == state; };
+inline bool KEY_DOWN(KEY key) { return KEY_CHECK(key, KEY_STATE::DOWN); };
+inline bool KEY_HOLD(KEY key) { return KEY_CHECK(key, KEY_STATE::HOLD); };
+inline bool KEY_UP(KEY key) { return KEY_CHECK(key, KEY_STATE::UP); };
+
+```
+
+이렇게 키 입력을 판단하는 인라인 함수를 정의해준다.
+
+그리고 pch.h에 include해주면 끝.
+
+
+이제 남은 건 충돌 처리와 단순한 네모 동그라미 그림이 아니라 좀더 복잡한 그래픽 처리인 것 같다.
+
+</pre>

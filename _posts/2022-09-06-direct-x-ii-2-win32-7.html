@@ -1,0 +1,520 @@
+---
+layout: post
+title: 'Direct X로 간단한 게임 만들기 - III. 게임엔진: SceneManager (씬 관리)'
+date: '2022-09-06T04:57:00.009-07:00'
+author: 가도
+tags:
+- 포트폴리오_DirectX
+modified_time: '2023-01-24T22:48:57.675-08:00'
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-398979616532573373
+blogger_orig_url: https://sealbinary.blogspot.com/2022/09/direct-x-ii-2-win32-7.html
+---
+
+<pre class="markdown">&gt; 목차
+[1. SceneManager](#user-content-1-scenemanager)
+[2. Scene과 자식 씬 클래스들](#user-content-2-scene과-자식-씬-클래스들)
+[3. GObject 클래스의 Update와 Render](#user-content-3-gobject-클래스의-update와-render)
+
+
+원래는 Core 클래스에서 Update와 Render를 매 프레임 돌리고 있었는데 이걸 씬 단위로 변경했다.
+
+정확히는
+Core 클래스의 Update와 Render -&gt; SceneManager의 Update와 Render -&gt; 현재 Scene의 Update와 Render -&gt; 현재 씬의 모든 오브젝트의 Update와 Render
+
+이렇게 호출 관계가 이어진다.
+
+이 포스팅에서 구현할 것을 대략적으로 정리하면 다음과 같다.
+
+SceneManager
+- 현재 씬과 전체 씬 정보 및 hdc를 가짐.
+- Init() : 초기화 함수. 전체 씬 클래스를 동적으로 생성하고 배열로 갖고 있음.
+- ChangeScene() : 씬 교체함수
+- Update() : 현재 Scene의 Update() 호출
+- Render() : 현재 Scene의 Render() 호출
+- ~SceneManager() : 초기화 과정에서 동적으로 생성한 모든 데이터를(전체 씬 정보 등) 소멸시킴.
+
+Scene
+- 씬들의 공통 부모 클래스. 실제로 생성되지는 않음.
+- 현재 씬의 모든 GObject를 set의 배열로 갖고 있음. 배열의 인덱스는 GROUP_TYPE.
+- Enter() : 씬에 진입했을 때 호출됨. 자식 함수에서 오버라이드 해야함.
+- Update() : 현재 Scene의 모든 GObject의 Update() 호출
+- Render() : 현재 Scene의 모든 GObject의 Render() 호출
+- Exit() : 씬에서 나갈 때 호출됨. 자식 함수에서 오버라이드 해야함.
+- AddGObject() : 현재 씬에 GObject를 추가함.
+- RemoveGObject(GObject) : 현재 씬에서 GObject를 삭제함.
+- ~Scene() : 현재 Scene의 모든 GObject를 소멸시킴.
+
+GObject
+- Update() : 해당 오브젝트가 살아있는 동안 매 프레임 자기자신의 정보를 갱신.
+- Render() : 해당 오브젝트가 살아있는 동안 매 프레임 자기자신을 화면에 그림.
+<span><a name='more'></a></span>
+
+### 1. SceneManager
+
+씬 매니저는 게임을 씬 단위로 구분해서 화면에 보여주기 위해 사용할 싱글톤 클래스다.
+
+현재 씬 정보를 갖고 있고, 씬을 교체하는 등의 함수를 제공한다.
+
+일단 Core 클래스에선 SceneManager를 Init하고,
+Core의 Progress 함수에서 Update와 Render를 호출하도록 변경한다.
+기존의 Core::Update와 Core::Render 함수는 삭제했다.
+
+```c++
+//Core.cpp
+int Core::Init(HWND h_wnd, int width, int height) {
+	
+	hwnd_ = h_wnd;
+	hdc_ = GetDC(hwnd_);
+	RECT rect{ 0, 0, width, height };
+	if (!AdjustWindowRect(&amp;rect, WS_OVERLAPPEDWINDOW, TRUE)) {
+		return E_FAIL;
+	}
+	if (!SetWindowPos(h_wnd, nullptr, 100, 100, rect.right - rect.left, rect.bottom - rect.top, 0)) {
+		return E_FAIL;
+	}
+	
+	pt_resolution_ = POINT{ rect.right - rect.left, rect.bottom - rect.top };
+	
+	hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
+	hdc_mem_ = CreateCompatibleDC(hdc_);
+	HBITMAP org_bitmap = (HBITMAP) SelectObject(hdc_mem_, hbitmap_);
+	DeleteObject(org_bitmap);
+
+	Time::GetInstance()-&gt;Init(h_wnd);
+	KeyManager::GetInstance()-&gt;Init();
+	SceneManager::GetInstance()-&gt;Init( hdc_mem_, pt_resolution_);
+
+	return S_OK;
+}
+
+
+
+bool Core::Progress()
+{
+	SyncResolution();
+	Time::GetInstance()-&gt;Update();
+	KeyManager::GetInstance()-&gt;Update();
+	SceneManager::GetInstance()-&gt;Update();
+
+	SceneManager::GetInstance()-&gt;ClearView(hdc_mem_);
+	SceneManager::GetInstance()-&gt;Render(hdc_mem_);
+	BitBlt(hdc_, 0, 0, pt_resolution_.x, pt_resolution_.y, hdc_mem_, 0, 0, SRCCOPY);
+	return TRUE;
+}
+```
+
+Core::Init 함수에선 SceneManager를 Init해주고
+Core::Progress 함수에선 그동안 만든 클래스들의 Update() 작업을 해준 뒤 화면을 지우고(ClearView()),
+SceneManager의 Render 함수를 호출한다.
+마지막으로 메모리DC의 그림을 화면DC로 복사해준다.
+
+이때 Core 클래스에서 최종적으로 화면DC로 복사해주는 것 외의 모든 렌더링은 메모리DC에 그려줄 것이기 때문에 인자로 항상 메모리DC를 넘겨준다.
+
+이제 SceneManager의 구현부이다.
+
+```c++
+//SceneManager.h
+#pragma once
+#include "Scene.h"
+
+class Scene;
+
+
+class SceneManager
+{
+	SINGLETON(SceneManager);
+private:
+	Scene* p_current_scene_;
+	Scene* scenes_[static_cast&lt;int&gt;(SCENE_TYPE::END)];
+	POINT pt_resolution_;
+	HDC hdc_;
+public:
+	bool Init(HDC hdc, POINT pt_resolution);
+	void RefreshResolution(POINT pt_resolution); //화면크기 변경 시 Core클래스에서 호출.
+	inline Scene* get_current_scene() { return p_current_scene_; };
+	bool Update();
+	bool Render(HDC hdc);
+	bool ChangeScene(SCENE_TYPE type);
+	void ClearView(HDC hdc);
+
+
+};
+```
+```c++
+//SceneManager.cpp
+#include "pch.h"
+#include "SceneManager.h"
+#include "Scene_Title.h"
+#include "Scene_01.h"
+#include "KeyManager.h"
+
+SceneManager::SceneManager()
+	: p_current_scene_(nullptr)
+	, scenes_{}
+{
+}
+
+SceneManager::~SceneManager() {
+	//모든 씬 삭제
+	for (int i = 0; i &lt; static_cast&lt;int&gt;(SCENE_TYPE::END); i++) {
+		delete scenes_[i];
+	}
+}
+
+bool SceneManager::Init(HDC hdc, POINT pt_resolution)
+{
+	hdc_ = hdc;
+	pt_resolution_ = pt_resolution;
+	//모든 씬 생성, 초기화
+	scenes_[static_cast&lt;int&gt;(SCENE_TYPE::TITLE)] = new Scene_Title( hdc_ );
+	scenes_[static_cast&lt;int&gt;(SCENE_TYPE::TITLE)]-&gt;set_name(_T("Title Scene"));
+	scenes_[static_cast&lt;int&gt;(SCENE_TYPE::SCENE_01)] = new Scene_01{ hdc_ };
+	scenes_[static_cast&lt;int&gt;(SCENE_TYPE::SCENE_01)]-&gt;set_name(_T("Scene01"));
+
+	//시작 씬 설정
+	p_current_scene_ = scenes_[static_cast&lt;int&gt;(SCENE_TYPE::TITLE)];
+	p_current_scene_-&gt;Enter();
+	return TRUE;
+}
+
+void SceneManager::RefreshResolution(POINT pt_resolution)
+{
+	pt_resolution_ = pt_resolution;
+}
+
+bool SceneManager::Update() {
+	p_current_scene_-&gt;Update();
+	return TRUE;
+}
+
+bool SceneManager::Render(HDC hdc) {
+	p_current_scene_-&gt;Render(hdc);
+	return TRUE;
+}
+bool SceneManager::ChangeScene(SCENE_TYPE type)
+{
+	p_current_scene_-&gt;Exit();
+	p_current_scene_ = scenes_[static_cast&lt;int&gt;(type)];
+	p_current_scene_-&gt;Enter();
+	return TRUE;
+}
+void SceneManager::ClearView(HDC hdc) {
+	Rectangle(hdc, -1, -1, pt_resolution_.x + 1, pt_resolution_.y + 1);
+}
+```
+SceneManager 클래스는 모든 씬 정보와 현재 씬 정보를 포인터로 갖고 있다.
+Init 함수에서 이 정보를 초기화한다.
+
+&gt; 새 씬을 만들면 이 함수 안에서 초기화 코드를 추가해주고, enum SCENE_TYPE에도 타입을 추가해야 한다.
+&gt; 현재 씬은 Title 씬과 Scene_01씬만 만들어두었다.
+
+Update와 Render 함수는 현재 씬의 Update와 Render로 연결시켜주는 역할만 한다.
+
+ChangeScene으로 현재 씬을 변경할 수 있다. 이때 현재 씬의 Exit 함수를 호출하고, 다음 씬의 Enter 함수를 호출한다.
+
+
+### 2. Scene과 자식 씬 클래스들
+
+Scene은 자식 씬 클래스들이 상속할 부모 클래스다.
+공통 작업을 정의하고, 자식 클래스에서 오버라이딩 할 함수는 virtual 키워드를 붙여 가상함수로 만든다.
+이때 순수 가상함수로 만들면 자식이 반드시 구현하도록 강제할 수 있다.
+
+Scene은 단독으로 생성될 일이 없고 반드시 자식 씬 클래스가 상속해서만 생성될 것이다.
+따라서 순수 가상함수를 반드시 하나 포함시키면 단독으로 생성되는 걸 컴파일 단계에서 방지할 수 있다.
+
+1. 공통 작업
+	- 씬에 GObject를 추가하거나 삭제하는 작업
+    - 생성자와 소멸자(단, 소멸자의 경우 자식 씬 클래스의 소멸자도 실행되어야 하므로 virtual 키워드를 붙여준다.)
+    - Update와 Render 함수
+2. 자식이 오버라이딩할 작업
+	- Enter와 Exit 함수
+    - 소멸자(동적 할당된 자원 소멸)
+
+Scene 클래스의 구현은 다음과 같다.
+
+```c++
+//Scene.h
+#pragma once
+#include "SceneManager.h"
+#include "GObject.h"
+class GObject;
+
+class Scene
+{
+	//현재 씬의 오브젝트 리스트
+private:
+	std::set&lt;GObject*, GObjectPtCompare&gt; gobjects_[static_cast&lt;int&gt;(GROUP_TYPE::END)];
+	tstring name_;
+
+	HDC hdc_;
+protected:
+
+	inline void AddGObject(GObject* object, GROUP_TYPE type)
+	{
+		gobjects_[static_cast&lt;int&gt;(type)].insert(object);
+	}
+
+	inline void RemoveGObject(GObject* object, GROUP_TYPE type)
+	{
+		delete object;
+	}
+	inline HDC get_hdc() { return hdc_; };
+public:
+	Scene() {};
+	Scene(HDC hdc_);
+	virtual ~Scene(); //자식 쪽의 상속자 호출을 위함
+	virtual bool Enter() = 0; //씬이 시작할 때 실행
+	void Update();//매 프레임마다 동작할 구문
+	void Render(HDC h_dc);
+	virtual bool Exit() = 0;//씬이 종료될 때 실행
+	inline void set_name(tstring name) { name_ = name; }
+	inline tstring get_name() { return name_; }
+};
+```
+
+```c++
+//Scene.cpp
+#include "pch.h"
+#include "Scene.h"
+#include "KeyManager.h"
+
+
+Scene::Scene(HDC hdc)
+	: name_(_T(""))
+	, hdc_(hdc)
+{
+
+}
+
+
+Scene::~Scene() {
+	for (int group = 0; group &lt; static_cast&lt;int&gt;(GROUP_TYPE::END); group++) {
+		for (auto gobject : gobjects_[group]) {
+			delete gobject;
+		}
+	}
+}
+
+void Scene::Update()
+{
+	for (int group = 0; group &lt; static_cast&lt;int&gt;(GROUP_TYPE::END); group++) {
+		for (auto gobject : gobjects_[group]) {
+
+			gobject-&gt;Update();
+		}
+	}
+	
+}
+void Scene::Render(HDC h_dc)
+{
+	for (int group = 0; group &lt; static_cast&lt;int&gt;(GROUP_TYPE::END); group++) {
+		for (auto gobject : gobjects_[group]) {
+			gobject-&gt;Render(h_dc);
+		}
+	}
+}
+;
+
+```
+
+씬이 소멸될 때 씬의 모든 GObject를 소멸시키고, Update와 Render 함수에선 씬의 모든 GObject의 Update와 Render 함수를 실행해준다.
+즉, 씬도 씬 매니저와 마찬가지로 연결해주는 역할만 하고 Update와 Render의 실제 구현은 GObject 안에서 이루어지게 된다.
+
+Update와 Render의 호출 관계는
+Core -&gt; SceneManager -&gt; Scene -&gt; GObject(을 상속한 각종 게임 오브젝트들)
+이렇게 이어진다.
+
+아래는 자식 씬 클래스들의 구현.
+```c++
+//Scene_Title.h
+
+class Scene_Title : public Scene
+{
+public:
+	Scene_Title(HDC hdc) : Scene(hdc){};
+	~Scene_Title() {};
+	bool Enter() override;
+	bool Exit() override;
+};
+//Scene_Title.cpp
+#include "pch.h"
+#include "Scene_Title.h"
+#include "KeyManager.h"
+#include "Time.h"
+
+bool Scene_Title::Enter()
+{
+	//펜을 검정으로 변경
+	HPEN h_pen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	HPEN old = (HPEN)SelectObject(get_hdc(), h_pen);
+	DeleteObject(old);
+
+	GObject* gobj = new GObject{ Vector2{ 500, 500 }, Rect2{ 500, 500, 510, 510 }, GROUP_TYPE::THING };
+	AddGObject(gobj, GROUP_TYPE::THING);
+	return TRUE;
+}
+
+
+bool Scene_Title::Exit()
+{
+	return TRUE;
+}
+
+```
+```c++
+//Scene_01.h
+#pragma once
+#include "Scene.h"
+
+class Scene_01 : public Scene
+{
+public:
+	Scene_01(HDC hdc) : Scene(hdc) {};
+	~Scene_01() {};
+	bool Enter() override;
+	bool Exit() override;
+};
+
+
+//Scene_01.cpp
+#include "pch.h"
+#include "Scene_01.h"
+#include "KeyManager.h"
+#include "Time.h"
+
+bool Scene_01::Enter()
+{
+	//펜을 빨강으로 변경
+	HPEN h_pen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	HPEN old = (HPEN) SelectObject(get_hdc(), h_pen);
+	DeleteObject(old);
+
+	GObject* gobj = new GObject{ Vector2{ 500, 500 }, Rect2{ 500, 500, 510, 510 }, GROUP_TYPE::THING };
+	AddGObject(gobj, GROUP_TYPE::THING);
+	return TRUE;
+}
+
+
+bool Scene_01::Exit()
+{
+	return TRUE;
+}
+
+```
+
+### 3. GObject 클래스의 Update와 Render
+
+GObject의 Update와 Render는 아직 비어있는데, 저번에 썼던 네모를 움직이는 코드를 여기로 옮겼다.
+
+```c++
+//GObject.h
+#pragma once
+//게임 안에 존재하는, 그려져야 하는 모든 오브젝트
+//매 렌더링에서 그려줌.
+class GObject
+{
+private:
+	static unsigned int id_counter_;
+	unsigned int id_;
+	Rect2 rect_;
+	Vector2 pos_;
+	SHORT priority_ = 0; //렌더링 우선순위. 클수록 나중에 그려짐(set의 뒤쪽에 위치)
+	GROUP_TYPE group_type_;
+public:
+	GObject(Vector2 pos, Rect2 rect, GROUP_TYPE type);
+	virtual ~GObject();
+	SHORT priority() { return priority_; };
+	virtual void Update();
+	virtual void Render(HDC hdc);
+
+	unsigned long long get_id() { return id_; };
+	inline Rect2 get_rect() { return rect_; };
+	inline float get_width() { return abs(rect_.right - rect_.left); };
+	inline float get_height() { return abs(rect_.bottom - rect_.top); };
+	inline Vector2 get_pos() { return pos_; }
+	inline void set_pos(Vector2 v) { //rect도 동기화
+		float x_axis_dist = v.x - get_pos().x;
+		float y_axis_dist = v.y - get_pos().y;
+		pos_ = v;
+		rect_.left += x_axis_dist;
+		rect_.right += x_axis_dist;
+		rect_.top += y_axis_dist;
+		rect_.bottom += y_axis_dist;
+	}
+	inline GROUP_TYPE get_type() { return group_type_; };
+
+	bool operator&lt; (const GObject&amp; o) const {
+		if (this-&gt;priority_ != o.priority_) return this-&gt;priority_ &lt; o.priority_;
+		else return this-&gt;id_ &lt; o.id_;
+	};
+	bool operator&lt;= (const GObject&amp; o) const {
+		if (this-&gt;priority_ != o.priority_) return this-&gt;priority_ &lt; o.priority_;
+		else return this-&gt;id_ &lt;= o.id_;
+	};
+	bool operator== (const GObject&amp; o) const {
+		return this-&gt;id_ == o.id_;
+	}
+	
+};
+
+struct GObjectPtCompare {
+	const bool operator()(const GObject* o1, const GObject* o2) const {
+		return (*o1) &lt; (*o2);
+	}
+};
+```
+```c++
+//GObject.cpp
+#include "pch.h"
+#include "GObject.h"
+#include "Core.h"
+#include "SceneManager.h"
+#include "KeyManager.h"
+#include "Time.h"
+
+unsigned int GObject::id_counter_ = 1;
+GObject::GObject(Vector2 pos, Rect2 rect, GROUP_TYPE type) 
+	: pos_(pos)
+	, rect_(rect)
+	, id_(id_counter_++)
+	, group_type_(type){
+
+}
+GObject::~GObject(){
+}
+
+void GObject::Update() {
+	Vector2 v = get_pos();
+	if (KeyManager::GetInstance()-&gt;get_key_states(KEY::D) == KEY_STATE::HOLD
+		|| KeyManager::GetInstance()-&gt;get_key_states(KEY::RIGHT) == KEY_STATE::HOLD) {
+		v.x += .2f * Time::GetInstance()-&gt;dt_f();
+
+	}
+	if (KeyManager::GetInstance()-&gt;get_key_states(KEY::A) == KEY_STATE::HOLD
+		|| KeyManager::GetInstance()-&gt;get_key_states(KEY::LEFT) == KEY_STATE::HOLD) {
+		v.x -= .2f * Time::GetInstance()-&gt;dt_f();
+
+	}
+	if (KeyManager::GetInstance()-&gt;get_key_states(KEY::W) == KEY_STATE::HOLD
+		|| KeyManager::GetInstance()-&gt;get_key_states(KEY::UP) == KEY_STATE::HOLD) {
+		v.y -= .2f * Time::GetInstance()-&gt;dt_f();
+
+	}
+	if (KeyManager::GetInstance()-&gt;get_key_states(KEY::S) == KEY_STATE::HOLD
+		|| KeyManager::GetInstance()-&gt;get_key_states(KEY::DOWN) == KEY_STATE::HOLD) {
+		v.y += .2f * Time::GetInstance()-&gt;dt_f();
+
+	}
+	
+	set_pos(v);
+
+}
+void GObject::Render(HDC hdc) {
+	Rect2 rect = get_rect();
+	Rectangle(hdc, static_cast&lt;int&gt;(rect.left), static_cast&lt;int&gt;(rect.top), static_cast&lt;int&gt;(rect.right), static_cast&lt;int&gt;(rect.bottom));
+}
+```
+
+다음 포스팅에선 GObject를 상세히 들어갈 것 같다.
+
+</pre>

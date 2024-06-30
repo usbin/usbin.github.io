@@ -1,0 +1,183 @@
+---
+layout: post
+title: "[C++] 생성자 소멸자 호출 순서와 멤버 이니셜라이저, 가상함수"
+date: '2022-09-06T05:59:00.005-07:00'
+author: 가도
+tags:
+- C-plusplus
+modified_time: '2022-09-06T06:04:04.164-07:00'
+thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEjntCv-OxW4Bbwsv6go98NxjTE9aL-WL0ctAPsL0bXDAHQtV7eV1Ljk5kg-hA0o2__4d9XxPZcEy6JVd0DdpxNHMOoFktfesi1gP83xW8gqqmO_n9MJZERmyvOWKplr0zgql_Pjnx_5fj6BE5nj6IajaawxAaRNJB3xz-fibG384hb3duIYbzCE2PTD_w=s72-w640-c-h537
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-3120891856038077372
+blogger_orig_url: https://sealbinary.blogspot.com/2022/09/c.html
+---
+
+<pre class="markdown"># 1. 생성자 소멸자의 기본 동작
+
+```c++
+#include &lt;iostream&gt;
+
+class Parent {
+public:
+    Parent() {
+        std::cout &lt;&lt; "Parent의 기본 생성자\n";
+    }
+    Parent(int n) {
+        std::cout &lt;&lt; "Parent의 int n 생성자\n";
+    }
+    ~Parent() {
+        std::cout &lt;&lt; "Parent의 소멸자\n";
+    }
+};
+
+class Child : public Parent {
+public:
+    Child() {
+        std::cout &lt;&lt; "Child의 기본 생성자\n";
+    }
+    Child(int n) {
+        std::cout &lt;&lt; "Child의 int n 생성자\n";
+    }
+    ~Child() {
+        std::cout &lt;&lt; "Child의 소멸자\n";
+    }
+};
+
+void ParentDefaultConstructor() {
+    std::cout &lt;&lt; "&lt;-------- Parent p; ------------&gt;\n";
+    Parent p;
+}
+
+void ParentParamConstructor() {
+    std::cout &lt;&lt; "&lt;-------- Parent p(1); ------------&gt;\n";
+    Parent p(1);
+}
+
+void ChildDefaultConstructor() {
+    std::cout &lt;&lt; "&lt;-------- Child c; ------------&gt;\n";
+    Child c;
+}
+
+void ChildParamConstructor() {
+    std::cout &lt;&lt; "&lt;-------- Child c(1); ------------&gt;\n";
+    Child c(1);
+}
+int main() {
+    ParentDefaultConstructor();
+    ParentParamConstructor();
+
+    ChildDefaultConstructor();
+    ChildParamConstructor();
+}
+    
+```
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjjAjEByhJEJ7Xs5ydXmtezJ8rj3cuWOCvgABoe47VmeqHVntWGnSxGkT1_6r6ldLiUH9WyPuiNHiTP9WtGjH4xxt5R857tWl_Dlt9Swucpu4HfrRSAgeNCycr1Zf0JrPtaytUEcqeyoRy91qyfGnLHdziObv2nreP-LMu0vSP-LL5XwW95ld9F2k3A5g" style="margin-left: 1em; margin-right: 1em;"></a><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjjAjEByhJEJ7Xs5ydXmtezJ8rj3cuWOCvgABoe47VmeqHVntWGnSxGkT1_6r6ldLiUH9WyPuiNHiTP9WtGjH4xxt5R857tWl_Dlt9Swucpu4HfrRSAgeNCycr1Zf0JrPtaytUEcqeyoRy91qyfGnLHdziObv2nreP-LMu0vSP-LL5XwW95ld9F2k3A5g" style="margin-left: 1em; margin-right: 1em;"></a><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjntCv-OxW4Bbwsv6go98NxjTE9aL-WL0ctAPsL0bXDAHQtV7eV1Ljk5kg-hA0o2__4d9XxPZcEy6JVd0DdpxNHMOoFktfesi1gP83xW8gqqmO_n9MJZERmyvOWKplr0zgql_Pjnx_5fj6BE5nj6IajaawxAaRNJB3xz-fibG384hb3duIYbzCE2PTD_w" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="256" data-original-width="305" height="537" src="https://blogger.googleusercontent.com/img/a/AVvXsEjntCv-OxW4Bbwsv6go98NxjTE9aL-WL0ctAPsL0bXDAHQtV7eV1Ljk5kg-hA0o2__4d9XxPZcEy6JVd0DdpxNHMOoFktfesi1gP83xW8gqqmO_n9MJZERmyvOWKplr0zgql_Pjnx_5fj6BE5nj6IajaawxAaRNJB3xz-fibG384hb3duIYbzCE2PTD_w=w640-h537" width="640" /></a></div><br /></div><br /><br /></div><br />
+<pre class="markdown">부모 클래스의 경우 호출한 생성자가 그대로 호출이 되고,
+자식 클래스의 경우 부모의 기본 생성자-&gt;본인의 호출한 생성자 순서로 호출이 된다.
+
+여기서 Child c(1)을 호출했을 때 부모의 기본 생성자가 아닌 Parent(int n) 생성자를 호출하려면 멤버 이니셜라이저를 사용하면 된다.
+<span><a name='more'></a></span>
+# 2. 멤버 이니셜라이저
+
+```c++
+class Child : public Parent{
+
+public:
+	Child(int n) : Parent(n){ }
+
+}
+```
+이렇게 생성자 뒤에 : Parent(인자)를 넣어주는 것이 멤버 이니셜라이저다.
+
+이렇게 고쳐서 실행하면
+
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgYNp9PA7zGEmjLH_DrzTDskrNzxZff_btCA57-6wDgJnkgMgAcEKbPdAK8UqSxIPVKchSu7WRz8bJ3DpArDJg92GTvp0DPHgsy0Vx_FSEw0jkwJ_XHhtulbz5DTuPjeP59mAPO8tF7Jsc01co7CWChtbNghdDSKElmTIZqFpA8bRei5OhuPKu3UUR_oA" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="89" data-original-width="290" height="196" src="https://blogger.googleusercontent.com/img/a/AVvXsEgYNp9PA7zGEmjLH_DrzTDskrNzxZff_btCA57-6wDgJnkgMgAcEKbPdAK8UqSxIPVKchSu7WRz8bJ3DpArDJg92GTvp0DPHgsy0Vx_FSEw0jkwJ_XHhtulbz5DTuPjeP59mAPO8tF7Jsc01co7CWChtbNghdDSKElmTIZqFpA8bRei5OhuPKu3UUR_oA=w640-h196" width="640" /></a></div><br />
+<pre class="markdown">부모도 int n 생성자가 실행된다.
+
+
+# 3. 가상함수
+
+가상함수란 부모의 함수 앞에 virtual 키워드를 붙여서 만든다.
+
+```c++
+class Parent{
+	virtual void Func(){
+   	//...
+    }
+}
+```</pre><pre class="markdown">가상함수는 포인터로 다룰 때 의미가 있는데,
+
+```c++
+Parent* pt = new Child();
+delete pt;
+```
+
+이 경우, 결과는 다음과 같다.
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhT0JqQzaQrgFiA7oRm1x2zczj_RQAsSqaAxe_eTu9RHPPDIL85KjTXWzLPwVU1MQIQiSy_CT0Uo1EqpbAY6wq_XMBj7sMebrxIT0jjG9A0GwLZpOliCVvYTiXDjAnZvN4C8TYksCL50WG9Pcw5l6_cqiK5UWaFgYD-91k5c9laQhFqfeq25LEBMHONZQ" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="58" data-original-width="181" height="206" src="https://blogger.googleusercontent.com/img/a/AVvXsEhT0JqQzaQrgFiA7oRm1x2zczj_RQAsSqaAxe_eTu9RHPPDIL85KjTXWzLPwVU1MQIQiSy_CT0Uo1EqpbAY6wq_XMBj7sMebrxIT0jjG9A0GwLZpOliCVvYTiXDjAnZvN4C8TYksCL50WG9Pcw5l6_cqiK5UWaFgYD-91k5c9laQhFqfeq25LEBMHONZQ=w640-h206" width="640" /></a></div><br />
+<pre class="markdown">부모의 타입으로 다루어도 생성은 Child형으로 되었기 때문에 생성자의 호출은 부모-&gt;자식 순차적으로 된다.
+하지만 소멸자를 호출할 땐 Child의 소멸자가 분명 있는데도 호출되지 않는다.
+
+이때 부모의 함수를 가상함수로 만들고 자식 함수에서 오버라이딩 해주면
+```c++
+#include &lt;iostream&gt;
+
+class Parent {
+public:
+    Parent() {
+        std::cout &lt;&lt; "Parent의 기본 생성자\n";
+    }
+    Parent(int n) {
+        std::cout &lt;&lt; "Parent의 int n 생성자\n";
+    }
+    virtual ~Parent() { //virtual 키워드
+        std::cout &lt;&lt; "Parent의 소멸자\n";
+    }
+};
+
+class Child : public Parent {
+public:
+    Child(){
+        std::cout &lt;&lt; "Child의 기본 생성자\n";
+    }
+    Child(int n) : Parent(n){
+        std::cout &lt;&lt; "Child의 int n 생성자\n";
+    }
+    ~Child() override { //override 키워드(생략 가능)
+        std::cout &lt;&lt; "Child의 소멸자\n";
+    }
+};
+int main() {
+    Parent* pt = new Child(1);
+    delete pt;
+}
+```
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjPFx7Zl4JJKTQo0mFdYbXj56f-R0Nb94df1X_e6dwqR6jXkU-eLln0SKCdRMGS1QG3cz3itYcSdCAzwZMoCIHH1qgNmH-oCUM_cIJswtyDosGSByRAKtgPyqQsvseY4adzv6YnfKUX5Tew4C2986Yk1VAIMSxbGcLxyqtw0f0docH9R29IAizT1sVNTg" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="72" data-original-width="186" height="248" src="https://blogger.googleusercontent.com/img/a/AVvXsEjPFx7Zl4JJKTQo0mFdYbXj56f-R0Nb94df1X_e6dwqR6jXkU-eLln0SKCdRMGS1QG3cz3itYcSdCAzwZMoCIHH1qgNmH-oCUM_cIJswtyDosGSByRAKtgPyqQsvseY4adzv6YnfKUX5Tew4C2986Yk1VAIMSxbGcLxyqtw0f0docH9R29IAizT1sVNTg=w640-h248" width="640" /></a></div><br />
+<pre class="markdown">Child의 소멸자가 먼저 실행되고 부모의 소멸자가 실행되게 된다.
+
+virtual 키워드는 소멸자만이 아니라 부모 클래스의 모든 함수에 붙일 수 있다.
+
+또한 클래스에 가상함수가 하나라도 있으면 가상함수 테이블이 생겨서 추가적으로 메모리를 잡아먹는다고 한다.
+
+# 4. 순수 가상함수
+
+순수 가상함수는
+```c++
+class Parent{
+	virtual void Func()=0;
+}
+```
+이렇게 만드는데, 순수 가상함수가 하나라도 있는 클래스는 단독으로 생성될 수 없고, 자식에게 상속하는 용도로만 쓸 수 있다.
+또한 일반 가상함수는 자식 함수에서 오버라이딩하지 않아도 되지만 순수 가상함수는 반드시 오버라이딩해야 한다.
+위의 Parent 클래스도 이제 
+```c++
+Parent p;
+```
+이렇게 단독으로 생성하려 하면 에러가 난다.
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjTMK37dojg_IGAWITjAl62wJKeaI0lJVYC_BrjlyYuMI6AXKbbC_oUXbdCrCU64mOMTvxDNBzr601LtnpDxvf36haDb9JuRryLdCoRVSdADbOxqPi70kvSDuJXgVLOlKwOtzmNjiQQoxzq4kbuEtBXpb8dZ-xW_JSQLjyaafWdHbBT1TNgvLOAoJ0L5Q" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="45" data-original-width="411" height="70" src="https://blogger.googleusercontent.com/img/a/AVvXsEjTMK37dojg_IGAWITjAl62wJKeaI0lJVYC_BrjlyYuMI6AXKbbC_oUXbdCrCU64mOMTvxDNBzr601LtnpDxvf36haDb9JuRryLdCoRVSdADbOxqPi70kvSDuJXgVLOlKwOtzmNjiQQoxzq4kbuEtBXpb8dZ-xW_JSQLjyaafWdHbBT1TNgvLOAoJ0L5Q=w640-h70" width="640" /></a></div><br />
+<pre class="markdown">반드시 자식 함수에서 구현하게 하려 할 때, 혹은 부모 클래스를 단독으로 생성하지 못하게 할 때 사용한다.
+
+</pre>

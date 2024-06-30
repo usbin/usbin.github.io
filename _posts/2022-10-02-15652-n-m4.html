@@ -1,0 +1,56 @@
+---
+layout: post
+title: 백준 알고리즘 15652번 - N과 M(4)
+date: '2022-10-02T19:47:00.004-07:00'
+author: 가도
+tags:
+- 자료구조/알고리즘
+modified_time: '2022-10-02T19:47:35.150-07:00'
+thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEjlSNm6V1EeznY1z-CNLoLAnwxb35Hm-AERkIHq9S_8-j0ArAlJa-P_0zWX2gfnxSifxmYHvHyRhZrXWuI8-P98ueDfIwDfxGO8A6XBGrcSzMUPt3_leTqF2GUEvV6ckWyilKy8ru9mumCh4xfrPNf5gAklVrDCRqIg_5hHUlVnyJItM1sTxoHsKGW9YQ=s72-w603-c-h640
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-1143464447190548719
+blogger_orig_url: https://sealbinary.blogspot.com/2022/10/15652-n-m4.html
+---
+
+<pre class="markdown">백준 알고리즘 15652번 - N과 M(4) (https://www.acmicpc.net/problem/15652)
+</pre>
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjlSNm6V1EeznY1z-CNLoLAnwxb35Hm-AERkIHq9S_8-j0ArAlJa-P_0zWX2gfnxSifxmYHvHyRhZrXWuI8-P98ueDfIwDfxGO8A6XBGrcSzMUPt3_leTqF2GUEvV6ckWyilKy8ru9mumCh4xfrPNf5gAklVrDCRqIg_5hHUlVnyJItM1sTxoHsKGW9YQ" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="778" data-original-width="733" height="640" src="https://blogger.googleusercontent.com/img/a/AVvXsEjlSNm6V1EeznY1z-CNLoLAnwxb35Hm-AERkIHq9S_8-j0ArAlJa-P_0zWX2gfnxSifxmYHvHyRhZrXWuI8-P98ueDfIwDfxGO8A6XBGrcSzMUPt3_leTqF2GUEvV6ckWyilKy8ru9mumCh4xfrPNf5gAklVrDCRqIg_5hHUlVnyJItM1sTxoHsKGW9YQ=w603-h640" width="603" /></a></div><br />
+<pre class="markdown">앞 문제 15651번을 풀고 바로 풀면 금방 풀 수 있는 문제다.
+
+앞 문제와 같이 중복이 없으며, 한가지 조건이 더 추가됐다.
+'앞 자리에서 선택한 수와 같거나 커야 한다'는 조건이다.
+
+수를 선택하는 for문에서 초기값을 1이 아니라 이전 자리수에서 선택한 수로 설정해주기만 하면 된다.
+
+```c++
+#include &lt;iostream&gt;
+int N, M;
+int sequence[9];
+void dfs(int depth){
+    if(depth==M){
+        for(int i=0; i&lt;M; i++){
+            std::cout&lt;&lt;sequence[i]&lt;&lt;" ";
+        }
+        std::cout&lt;&lt;"\n";
+    }
+    else{
+        int i;
+        if(depth&gt;0) i = sequence[depth-1];
+        else i=1;
+        for(; i&lt;=N; i++){
+            sequence[depth]=i;
+            dfs(depth+1);
+        }
+    }
+}
+int main(){
+    //1부터 N까지 자연수 중 M개를 고르기
+    //중복 선택 가능
+    //오름차순
+    std::cin&gt;&gt;N&gt;&gt;M;
+    
+    dfs(0);
+}
+
+```
+
+</pre>

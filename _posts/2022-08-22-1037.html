@@ -1,0 +1,68 @@
+---
+layout: post
+title: 백준 알고리즘 1037번 - 약수
+date: '2022-08-22T00:15:00.006-07:00'
+author: 가도
+tags:
+- 자료구조/알고리즘
+- C-plusplus
+modified_time: '2022-08-22T00:16:36.510-07:00'
+thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEgF1QVNAqkskffoQD6msyul2c555llGosJoJ2SEy8C1Ri8PEEjmfZSyQeL_PqYlJyEHNybufBcQlXvNRt5LCbhEyGI5Gz_MbUu_TKM6z5AUsO9u3EBBUJbBKi5PLvqWikJNuRI1aK4L_pvU9xSBb67yKS0HSz4JXUXBjBLjzq0jfRFwAWSlZSLtBDxq5Q=s72-w640-c-h466
+blogger_id: tag:blogger.com,1999:blog-778891705567453961.post-7944964681169895634
+blogger_orig_url: https://sealbinary.blogspot.com/2022/08/1037.html
+---
+
+<p>
+  &nbsp;백준 알고리즘 1037번 - 약수(<a href="https://www.acmicpc.net/problem/1037">https://www.acmicpc.net/problem/1037</a>)
+</p>
+<p><br /></p>
+<p></p>
+<div class="separator" style="clear: both; text-align: center;">
+  <a href="https://blogger.googleusercontent.com/img/a/AVvXsEgF1QVNAqkskffoQD6msyul2c555llGosJoJ2SEy8C1Ri8PEEjmfZSyQeL_PqYlJyEHNybufBcQlXvNRt5LCbhEyGI5Gz_MbUu_TKM6z5AUsO9u3EBBUJbBKi5PLvqWikJNuRI1aK4L_pvU9xSBb67yKS0HSz4JXUXBjBLjzq0jfRFwAWSlZSLtBDxq5Q" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="540" data-original-width="741" height="466" src="https://blogger.googleusercontent.com/img/a/AVvXsEgF1QVNAqkskffoQD6msyul2c555llGosJoJ2SEy8C1Ri8PEEjmfZSyQeL_PqYlJyEHNybufBcQlXvNRt5LCbhEyGI5Gz_MbUu_TKM6z5AUsO9u3EBBUJbBKi5PLvqWikJNuRI1aK4L_pvU9xSBb67yKS0HSz4JXUXBjBLjzq0jfRFwAWSlZSLtBDxq5Q=w640-h466" width="640" /></a>
+</div>
+<p><br /></p>
+<pre class="markdown"># 1. 접근하기
+
+진짜 약수가 주어졌을 때, 이 수가 무엇인지 구하기.
+'진짜 약수'라는 건 1과 자기자신을 제외한 약수를 뜻한다.
+
+수가 12라면 진짜 약수는 2, 3, 4, 6이고
+33이라면 3, 11이고... 대충 이런 식.
+
+진짜 약수로 어떤 수의 약수인지 구하려면 어떻게 해야할까?
+1을 제외한 모든 수는 소수의 곱셈으로 이루어져있다.
+12는 2^2 * 3
+33은 3 * 11
+
+그리고 진짜 약수 중 가장 큰 약수는 진짜 약수 중 가장 작은 수를 제외한 수를 곱한 것과 같다.
+12가 2^2 * 3일 때, 가장 큰 진짜 약수는 6이고, 이는 곧 2*3이다. 가장 작은 소수인 2를 하나 제외하고 곱한 것과 같다.
+
+즉, 진짜 약수에서 가장 큰 수와 가장 작은 수를 곱하면 본래 수가 나올 거라는 계산이 나온다.
+
+코드 자체는 쉬워서 처음에 접근만 잘 하면 풀 수 있는 문제 같다.
+
+이대로 코드를 짜보면 다음과 같다.
+
+# 2. 소스코드
+
+
+```c++#include &lt;iostream&gt;
+int main(){
+    //진짜약수:1과 자기자신을 제외한 약수
+    int count;
+    std::cin&gt;&gt;count;
+    int min, max;
+    min=max=-1;
+    for(int i=0; i&lt;count; i++){
+        int abbv;
+        std::cin&gt;&gt;abbv;
+        if(min==-1 || min&gt;abbv) min=abbv;
+        if(max==-1 || max&lt;abbv) max=abbv;
+    }
+    std::cout&lt;&lt;min*max;
+}
+```
+
+가장 작은 수와 가장 큰 수를 찾은 다음 곱해서 출력해주면 된다. 
+
+</pre>
