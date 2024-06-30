@@ -1,0 +1,757 @@
+--- layout: post title: 'Direct X로 간단한 게임 만들기 - III. 게임엔진 : 충돌체 클래스, final 선언과 delete 함수' date: '2022-09-15T06:02:00.005-07:00' author: 가도 tags: - 포트폴리오\_DirectX modified\_time: '2023-01-24T22:49:30.539-08:00' thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEg6x49FQfWVCz5KojuFskQYiFBNuBt566itYj5U2h6lN9lflVbefHA9Mx3neWc10malDDmzSDAjwRXWITkzdGVBiQ5beTCFzsTBoFKNMLtTF383g5GdhcTysh1pEaTaZtDSElZi8qVa8bkBn7nIies-289Cg\_H-nxHurTqGYvMuRo9THpSYvXV9XydVag=s72-w640-c-h400 blogger\_id: tag:blogger.com,1999:blog-778891705567453961.post-5453174963143354117 blogger\_orig\_url: https://sealbinary.blogspot.com/2022/09/direct-x-ii-2-win32-11-final-delete.html ---
+
+    > 목차
+    [1. 충돌을 어떻게 구현할 것인가?](#user-content-1-충돌을-어떻게-구현할-것인가)
+    [2. 충돌체 클래스](#user-content-2-충돌체-클래스)
+    [3. 펜, 브러쉬 선택 간편하게 만들기](#user-content-3-펜-브러쉬-선택-간편하게-만들기)
+    [4. 충돌 매니저 클래스, 충돌 검사](#user-content-4-충돌-매니저-클래스-충돌-검사)
+    [5. 충돌 테스트](#user-content-5-충돌-테스트)### 1. 충돌을 어떻게 구현할 것인가?
+    
+    먼저, 충돌 말고도 이후에 이것저것 추가될 수 있는데, 그렇다고 GObject의 상속 관계로 ColliderGObject 같은 클래스를 정의하자니 너무 복잡해진다.
+    상속의 단점은 프로그램 구조가 커질수록 예외가 당연히 생기는데 이 예외들을 다루려면 점점 더 복잡해진다는 것.
+    
+    그래서 컴포넌트 방식을 사용했다.
+    
+    GObject의 멤버변수로 컴포넌트들을 갖도록 하고, nullptr이 아닐 경우에만 관련 처리를 해준다.
+    충돌체가 nullptr이 아니라면 충돌 처리를 해주고, nullptr이라면 안 해주면 된다.
+    
+    그리고 이 컴포넌트들의 Update는 반드시 GObject의 Update가 끝난 후에 실행되어야 한다.
+    (위치 정보의 업데이트 등이 모두 끝난 후에 충돌 처리를 해야 하므로)
+    
+    현재는 Scene 클래스에서
+    ```c++
+    //Scene.cpp
+    
+    자신의 모든 오브젝트에 대하여 :
+    	obj.Update()
+    ```
+    이렇게 되어있는 것을
+    
+    ```c++
+    //Scene.cpp
+    
+    자신의 모든 오브젝트에 대하여 :
+    	gobj.Update()
+        
+    자신의 모든 오브젝트에 대하여 :
+    	gobj.FinalUpdate()
+    ```
+    
+    이렇게 고쳐줘야 한다.
+    
+    마찬가지로 Render 함수를 실행한 후 ComponentRender를 실행하도록 고쳐준다.
+    
+    ```c++
+    //Scene.cpp
+    void Scene::Render(HDC h_dc)
+    {
+    	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
+    		for (auto gobject : gobjects_[group]) {
+    			gobject->Render(h_dc);
+    		}
+    	}
+    	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
+    		for (auto gobject : gobjects_[group]) {
+    			gobject->ComponentRender(h_dc);
+    		}
+    	}
+    }
+    ```
+    
+    
+    
+    그리고 GObject의 FinalUpdate 함수는
+    
+    ```c++
+    //GObject.cpp
+    void GObject::FinalUpdate(){
+    	if(충돌체 != nullptr) 충돌체.FinalUpdate();
+        if(컴포넌트1 != nullptr) 컴포넌트1.FinalUpdate();
+        if(컴포넌트2 != nullptr) 컴포넌트2.FinalUpdate();
+        //...등등
+    }
+    
+    ```
+    이런 식으로 자신이 가진 모든 컴포넌트의 FinalUpdate를 실행하게 된다.
+    덧붙여, 이 FinalUpdate는 자식 클래스가 오버라이딩하면 안 되고 무조건 GObject의 원본 함수를 실행해야 하므로 선언할 때 오버라이딩을 막아야 한다.
+    
+    일단 충돌체 클래스.
+    
+    ### 2. 충돌체 클래스
+    
+    Collider가 가져야 할 것.
+    \- owner : 본인이 부착된 GObject
+    \- 오프셋: 기준 위치에서 조정이 필요할 수 있으니 offset 사용
+    \- 위치: owner의 위치+오프셋으로 조정한 위치
+    \- 크기
+    
+    \- FinalUpdate 함수 : 위치를 오브젝트에 맞추어 업데이트한다. GObject의 FinalUpdate에서 호출해준다.
+    \- Render 함수 : 자기자신을 화면에 그린다. GObject의 ComponentRender에서 호출해준다.
+    \- OnCollisionEnter(부딪힌 오브젝트)
+    \- OnCollisionStay(부딪힌 오브젝트)
+    \- OnCollisionExit(부딪힌 오브젝트)
+    
+    \* 충돌체는 보통 눈에 보이지 않지만 언젠가 추가할 다른 컴포넌트들은 눈에 보여야할 수 있기 때문에, ComponentRender 함수가 필요한 것.
+    
+    ```c++
+    #pragma once
+    class GObject;
+    
+    class Collider
+    {
+    public:
+    	Collider();
+    	~Collider();
+    	Collider(const Collider& org);
+    
+    private:
+    	static UINT id_counter_;
+    	UINT id_;
+    	Vector2 pos_offset_;	//속한 오브젝트의 pos를 기준으로 한 오프셋
+    	Vector2 scale_; //크기
+    	Vector2 final_pos_; //FinalUpdate에서 업데이트하는 pos
+    	GObject* owner_; //속한 오브젝트
+    
+    public:
+    	inline UINT get_id() { return id_; };
+    	inline void set_pos_offset(const Vector2& pos) { pos_offset_ = pos; };
+    	inline const Vector2& get_pos_offset() { return pos_offset_; };
+    	inline void set_scale(const Vector2& scale) { scale_ = scale; };
+    	inline const Vector2& get_scale() { return scale_; };
+    	inline void set_owner(GObject* owner) { owner_ = owner; };
+    	inline const Vector2& get_pos() { return final_pos_; };
+    
+    	void FinalUpdate(); //매 프레임 업데이트가 끝난 후 owner의 위치를 따라감.
+    	void Render(HDC hdc);
+    
+    	void OnCollisionEnter(const GObject& collision);
+    	void OnCollisionStay(const GObject& collision);
+    	void OnCollisionExit(const GObject& collision);
+    
+    	Collider& operator=(const Collider& o_c) = delete;
+    
+    };
+    
+    
+    ```
+    ```c++
+    //Collider.cpp
+    #include "pch.h"
+    #include "Collider.h"
+    #include "GObject.h"
+    #include "SelectGDI.h"
+    
+    
+    Collider::Collider()
+    	: id_(id_counter_++)
+    	, pos_offset_{}
+    	, scale_{}
+    	, owner_(nullptr)
+    {
+    }
+    
+    Collider::~Collider()
+    {
+    }
+    
+    Collider::Collider(const Collider&amp; org)
+    	: id_(id_counter_++)
+    	, pos_offset_{org.pos_offset_}
+    	, scale_{org.scale_}
+    	, owner_(nullptr)
+    {
+    }
+    
+    void Collider::FinalUpdate()
+    {
+    	//owner의 위치를 따라감.
+    	final_pos_ = owner_-&gt;get_pos() + pos_offset_;
+    
+    }
+    
+    
+    void Collider::Render(HDC hdc)
+    {
+    	//테두리 그리기
+    	PEN_TYPE pen_type = PEN_TYPE::GREEN;
+    	SelectGdi _(hdc, pen_type);
+    	SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
+    	Rectangle(hdc
+    		, static_cast<int>(final_pos_.x - scale_.x / 2)
+    		, static_cast<int>(final_pos_.y - scale_.y / 2)
+    		, static_cast<int>(final_pos_.x + scale_.x / 2)
+    		, static_cast<int>(final_pos_.y + scale_.y / 2));
+    }
+    
+    void Collider::OnCollisionEnter(const GObject&amp; collision)
+    {
+    	collision_count_++;
+    }
+    
+    void Collider::OnCollisionStay(const GObject&amp; collision)
+    {
+    }
+    
+    void Collider::OnCollisionExit(const GObject&amp; collision)
+    {
+    	collision_count_--;
+    }
+    
+    ```
+    여기서 충돌체는 고유한 id를 갖는데, 나중에 충돌체의 이전 프레임에서의 충돌 여부를 저장하기 위해서다.
+    충돌체 id를 생성자에서 id_counter_++를 사용해서 정의해주기 때문에 복사 생성자를 사용하면 같은 id를 공유하는 충돌체가 생겨버린다.
+    따라서 복사 생성자를 사용하지 못하도록 delete 해준다.
+    
+    > ### [delete 키워드]
+    void Func() = delete; 이런 식으로 사용해서 해당 함수를 어디에서도 호출하지 못하게 만듦.
+    
+    그리고 GObject에도 FinalUpdate 함수와 ComponentRender 함수를 final 키워드를 붙여 추가해준다.
+    
+    > ### [final 키워드]
+    virtual void Func() final; 이런 식으로 선언해서 이 함수를 자신을 끝으로 자식 클래스가 더이상 오버라이딩 할 수 없게 막음.
+    
+    ```c++
+    //GObject.h
+    public:
+    	virtual void FinalUpdate() final;	// 충돌체 등 추가적인 컴포넌트들의 Update 작업 정의
+    										// 무조건 GObject의 FinalUpdate가 호출되어야 함.
+    										// 오버라이딩 방지.
+    	virtual void ComponentRender(HDC hdc) final;
+    ```
+    
+    ```c++
+    //GObject.cpp
+    
+    void GObject::FinalUpdate() {
+    	// 컴포넌트들에 대한 FinalUpdate들 모음.
+    	if (collider_ != nullptr) collider_->FinalUpdate();
+    }
+    
+    void GObject::ComponentRender(HDC hdc) {
+    	// 컴포넌트들에 대한 렌더링
+    	if (collider_ != nullptr) collider_->Render(hdc);
+    }
+    GObject::~GObject(){
+    	delete collider_; //소멸자에서 충돌체 삭제해줌.
+    }
+    ```
+    
+    ### 3. 펜, 브러쉬 선택 간편하게 만들기
+    
+    테스트하기 쉽게 충돌체를 초록색으로 테두리를 칠한다.
+    
+    일단 자주 사용할 펜, 브러쉬를 미리 만들어놓고 Core에서 꺼내쓸 수 있게 만든다.
+    ```c++
+    //enum.h
+    enum class PEN_TYPE {
+    	BLACK,
+    	WHITE,
+    	RED,
+    	GREEN,
+    	BLUE,
+    	END
+    };
+    
+    enum class BRUSH_TYPE {
+    	WHITE,
+    	BLACK,
+    	RED,
+    	GREEN,
+    	BLUE,
+    	HOLLOW,
+    	END
+    };
+    
+    ```
+    ```c++
+    //Core.h
+    	HPEN pens[static_cast<int>(PEN_TYPE::END)];
+    	HBRUSH brushes[static_cast<int>(BRUSH_TYPE::END)];
+        inline HPEN GetPen(PEN_TYPE pen_type) {
+    		return pens[static_cast<int>(pen_type)];
+    	};
+    	inline HBRUSH GetBrush(BRUSH_TYPE brush_type) {
+    		return brushes[static_cast<int>(brush_type)];
+    	}
+    ```
+    
+    ```c++
+    //Core.cpp
+    //윈도우 닫히기 전 리소스 정리작업
+    int Core::OnDestroy() {
+    	ReleaseDC(hwnd_, hdc_);
+    	DeleteDC(hdc_mem_);
+    	DeleteObject(hbitmap_);
+    	//pen과 brush 삭제
+    	for (int i = 0; i < static_cast<int>(PEN_TYPE::END); i++) DeleteObject(pens[i]);
+    	for (int i = 0; i < static_cast<int>(BRUSH_TYPE::END); i++) DeleteObject(brushes[i]);
+    	return S_OK;
+    }
+    int Core::Init(HWND h_wnd, int width, int height) {
+    	//...
+        
+    	InitPenAndBrush();
+        
+        //...
+    
+    	return S_OK;
+    }
+    
+    void Core::InitPenAndBrush()
+    {
+    	pens[static_cast<int>(PEN_TYPE::BLACK)] = (HPEN)GetStockObject(BLACK_PEN);
+    	pens[static_cast<int>(PEN_TYPE::WHITE)] = (HPEN)GetStockObject(WHITE_PEN);
+    	pens[static_cast<int>(PEN_TYPE::RED)] = (HPEN)CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+    	pens[static_cast<int>(PEN_TYPE::GREEN)] = (HPEN)CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+    	pens[static_cast<int>(PEN_TYPE::BLUE)] = (HPEN)CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+    
+    	brushes[static_cast<int>(BRUSH_TYPE::BLACK)] = (HBRUSH)GetStockObject(BLACK_BRUSH);
+    	brushes[static_cast<int>(BRUSH_TYPE::WHITE)] = (HBRUSH)GetStockObject(WHITE_BRUSH);
+    	brushes[static_cast<int>(BRUSH_TYPE::RED)] = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+    	brushes[static_cast<int>(BRUSH_TYPE::GREEN)] = (HBRUSH)CreateSolidBrush(RGB(0, 255, 0));
+    	brushes[static_cast<int>(BRUSH_TYPE::BLUE)] = (HBRUSH)CreateSolidBrush(RGB(0, 0, 255));
+    	brushes[static_cast<int>(BRUSH_TYPE::HOLLOW)] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+    }
+    
+    ```
+    
+    이제 Core 함수에서 GetPen이나 GetBrush를 호출하면 펜과 브러쉬를 가져올 수 있다. 프로그램이 닫힐 때 소멸되도록 코드도 추가해준다.
+    
+    그리고 펜과 브러쉬를 바꿀 때 과정이 너무 번거로운데 강의에서 이걸 편하게 쓰는 방법을 알았다.
+    
+    클래스의 생성자를 전역함수처럼 사용하는 건데, 지역변수로 객체를 생성하면 소멸되면서 소멸자가 실행되므로 펜과 브러쉬의 복구도 자동으로 처리되게 할 수 있다.
+    
+    
+    ```c++
+    //SelectGdi.h
+    #pragma once
+    class SelectGdi
+    {
+    private:
+    	HPEN default_pen_;
+    	HBRUSH default_brush_;
+    	HDC hdc_;
+    public:
+    	SelectGdi(HDC hdc, PEN_TYPE pen_type);
+    	SelectGdi(HDC hdc, BRUSH_TYPE brush_type);
+    	~SelectGdi();
+    };
+    ```
+    ```c++
+    //SelectGdi.cpp
+    #include "pch.h"
+    #include "SelectGDI.h"
+    #include "Core.h"
+    
+    SelectGdi::SelectGdi(HDC hdc, PEN_TYPE pen_type) 
+    	:default_pen_()
+    	,default_brush_(){
+    	hdc_ = hdc;
+    	default_pen_ = (HPEN)SelectObject(hdc, Core::GetInstance()->GetPen(pen_type));
+    }
+    SelectGdi::SelectGdi(HDC hdc, BRUSH_TYPE brush_type)
+    	: default_pen_()
+    	, default_brush_() {
+    	hdc_ = hdc;
+    	default_brush_ = (HBRUSH)SelectObject(hdc, Core::GetInstance()->GetBrush(brush_type));
+    }
+    
+    
+    SelectGdi::~SelectGdi() {
+    	SelectObject(hdc_, default_pen_);
+    	SelectObject(hdc_, default_brush_);
+    
+    }
+    ```
+    
+    앞으론
+    ```c++
+    SelectGdi _(Core::GetInstance()->GetPen(PEN_TYPE::RED));
+    
+    ```
+    이런 식으로 펜을 선택할 수 있다.
+    \* 이름없는 변수로 선언하면 컴파일러가 무시하기 때문에 반드시 이름을 지어줘야 하며, 지역변수로 선언했기 때문에 기본적으로 함수가 종료되면 이전 펜으로 복구된다.
+    \* if문 등의 블록을 사용하면 해당 블록이 끝날 때 이전 펜으로 복구된다는 걸 기억해야함.
+    
+    ### 4. 충돌 매니저 클래스, 충돌 검사
+    
+    이제 오브젝트간의 충돌검사를 정의할 건데,
+    
+    현재 씬에 있는 모든 오브젝트를 각각 서로에 대해 충돌을 체크하면 너무 많은 시간이 소요되므로,
+    애초에 충돌 관계를 정의해서 서로 충돌할 수 있는지 없는지를 먼저 정의한다.
+    충돌 관계는 오브젝트 그룹별로 설정한다.
+    
+    PLAYER 그룹과 MONSTER 그룹의 충돌 여부, PLAYER 그룹과 MISSILE 그룹의 충돌 여부, 등등을 저장한다.
+    오브젝트 그룹은 최대 32개까지 정의할 것이므로, 32비트x32비트의 비트맵을 사용한다.
+
+[![](https://blogger.googleusercontent.com/img/a/AVvXsEg6x49FQfWVCz5KojuFskQYiFBNuBt566itYj5U2h6lN9lflVbefHA9Mx3neWc10malDDmzSDAjwRXWITkzdGVBiQ5beTCFzsTBoFKNMLtTF383g5GdhcTysh1pEaTaZtDSElZi8qVa8bkBn7nIies-289Cg_H-nxHurTqGYvMuRo9THpSYvXV9XydVag=w640-h400)](https://blogger.googleusercontent.com/img/a/AVvXsEg6x49FQfWVCz5KojuFskQYiFBNuBt566itYj5U2h6lN9lflVbefHA9Mx3neWc10malDDmzSDAjwRXWITkzdGVBiQ5beTCFzsTBoFKNMLtTF383g5GdhcTysh1pEaTaZtDSElZi8qVa8bkBn7nIies-289Cg_H-nxHurTqGYvMuRo9THpSYvXV9XydVag)
+  
+
+    그리고 충돌을 세가지 상태로 분류할 건데,
+    
+    (1) 처음 충돌함 (2) 충돌 중임 (3) 충돌 끝남
+    
+    이렇게다. 마우스나 키보드 입력 이벤트와 유사하다.
+    
+    이 세가지 상태를 정의하려면 반드시 "두 충돌체의 이전 프레임의 충돌 여부"를 저장해야 한다.
+    따라서 두 충돌체의 id값을 키값으로 충돌 여부를 bool값으로 저장하는 map 자료구조를 사용한다.
+    
+    그리고 위에서 말한 비트맵과 이 map을 저장하고 충돌 검사를 하기 위해 충돌 매니저 클래스를 만들어준다.
+    
+    충돌 매니저 클래스가 가지는것.
+    
+    - 변수: 충돌 관계 비트맵
+    - 변수: 이전 프레임의 충돌 여부 map
+    - 함수: 충돌 관계 체크/언체크 함수
+    - 함수: 매 프레임 실행될 Update 함수(충돌검사)
+    
+    
+    충돌 체크의 로직.
+    (1) 그룹단위로 충돌 관계를 미리 정의(비트열 체크박스)
+    (2) 충돌 검사할 땐 두 그룹이 충돌관계에 있을 경우에만(시간 절약됨)
+    	- 충돌관계에 있는 두 그룹의 모든 오브젝트(현재 씬으로부터 받아옴)에 대해, 충돌체가 있는 경우에만 충돌 상태를 검사
+    	- 충돌의 세가지 상태: 충돌 시작, 충돌중, 충돌 종료
+    	- 이를 위해 "이전 프레임 충돌 여부"를 저장해야함. => 저장해야 할 정보:충돌여부, 두 충돌체 정보
+    	- 두 충돌체의 id를 합쳐 union으로 ULONGLONG id를 만들고, 이걸 키값으로 bool형 충돌 여부를 저장함.
+    (3) 충돌 검사 결과에 따라 두 충돌체의 OnCollisionEnter, OnCollisionStay, OnCollisionExit 함수를 호출.
+    
+    ```c++
+    //CollisionManager.h
+    #pragma once
+    #include "GObject.h"
+    
+    //매 프레임 충돌 체크를 하는 충돌 매니저
+    class CollisionManager
+    {
+    	SINGLETON(CollisionManager);
+    private:
+    	//행은 0부터 31까지
+    	//맨 오른쪽이 0번 비트. 맨 왼쪽이 31번 비트.
+    	UINT group_collision_bitmap_[static_cast<int>(GROUP_TYPE::END)] = {0};
+    	//이전 프레임 충돌 여부
+    	std::map<ULONGLONG, bool> prev_collision_;
+    public:
+    	void Init();
+    	void Update();
+    	void CheckGroupBitmap(GROUP_TYPE group1, GROUP_TYPE group2);
+    	void GroupObjectCollision(const std::set<GObject*, GObjectPtCompare>& group1_objs, const std::set<GObject*, GObjectPtCompare>& group2_objs);
+    	bool IsCollision(GObject* obj1, GObject* obj2);
+    };
+    
+    
+    ```
+    
+    
+    ```c++
+    //CollisionManager.cpp
+    #include "pch.h"
+    #include "CollisionManager.h"
+    #include "GObject.h"
+    #include "SceneManager.h"
+    #include "Collider.h"
+    
+    CollisionManager::CollisionManager() {}
+    CollisionManager::~CollisionManager() {}
+    
+    void CollisionManager::Init()
+    {
+    	//(1) 충돌 관계 비트맵을 설정해줌.
+    	//Player-Monster
+    	CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+    	//Missile-Monster
+    	CheckGroupBitmap(GROUP_TYPE::MISSILE, GROUP_TYPE::MONSTER);
+    	
+    }
+    
+    void CollisionManager::Update()
+    {
+    	//현재 씬의 모든 오브젝트를 받아와야함.
+    	//(2)충돌 관계 비트맵을 순회하며 그룹i와 그룹j의 충돌 관계가 true일 경우에만 현재 씬에서 두 그룹에 각각에 속한 오브젝트 리스트를 받아옴.
+    	for (UINT i = 0; i < static_cast<UINT>(GROUP_TYPE::END); i++) {
+    		for (UINT j = 0; j < static_cast<UINT>(GROUP_TYPE::END)-i; j++) {
+    			// 두 그룹의 충돌여부가 체크돼있을 때에만
+    			if (group_collision_bitmap_[i] & (1 << j)) {
+    				const std::set<GObject*, GObjectPtCompare>& group1_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(i));
+    				const std::set<GObject*, GObjectPtCompare>& group2_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(j));
+    				GroupObjectCollision(group1_objs, group2_objs);
+    			}
+    			
+    		}
+    	}
+    	
+    }
+    
+    void CollisionManager::CheckGroupBitmap(GROUP_TYPE group1, GROUP_TYPE group2)
+    {
+    	// 비트열에서 [0,1]과 [1,0]이 의미하는 건 같으므로(0번 그룹과 1번 그룹의 충돌여부)
+    	// 대각선 절반만 사용함.
+    	// 무조건 작은 그룹이 행으로 쓰이게 함. ( [0,1]만 사용하고 [1,0]은 사용하지 않음 )
+    	UINT row = static_cast<UINT>(group1);
+    	UINT col = static_cast<UINT>(group2);
+    	if (row > col) {
+    		col = static_cast<UINT>(group1);
+    		row = static_cast<UINT>(group2);
+    	}
+    
+    	group_collision_bitmap_[row] |= 1 << col;
+    
+    }
+    
+    void CollisionManager::GroupObjectCollision(const std::set<GObject*, GObjectPtCompare>& group1_objs, const std::set<GObject*, GObjectPtCompare>& group2_objs)
+    {
+    
+    	//(3)두 그룹의 충돌 상태 체크
+    	// - (i) 이전에 충돌하지 않았고 지금 충돌했음 -> OnCollisionEnter
+    	// - (ii) 이전에 충돌했고 지금도 충돌함 -> OnCollisionStay
+    	// - (iii) 이전에 충돌했고 지금은 충돌하지 않음 -> OnCollisionExit
+    	for (GObject* obj1 : group1_objs) {
+    
+    		if (obj1->get_collider() == nullptr) continue; //하나라도 콜라이더가 없으면 충돌x
+    
+    		for (GObject* obj2 : group2_objs) {
+    			
+    			if (obj2->get_collider() == nullptr) continue; //하나라도 콜라이더가 없으면 충돌x
+    			if (obj1 == obj2) continue; //동일 오브젝트끼리는 충돌x
+    
+    
+    			// 이전 충돌 여부로 분류해서 Collider 콜백함수 실행
+    			// 더 작은 값이 첫번째 아이디로 오도록
+    			UINT cid1 = obj1->get_collider()->get_id();
+    			UINT cid2 = obj2->get_collider()->get_id();
+    			if (cid1 > cid2) {
+    				cid1 = obj2->get_collider()->get_id();
+    				cid2 = obj1->get_collider()->get_id();
+    			}
+    			CollisionId cls_id;
+    			cls_id.collider1_id = cid1;
+    			cls_id.collider2_id = cid2;
+    			auto it = prev_collision_.find(cls_id.Id);
+    
+    			if (it == prev_collision_.end()) {
+    				prev_collision_.insert(std::make_pair(cls_id.Id, false));
+    				it = prev_collision_.find(CollisionId{ cid1, cid2 }.Id);
+    			}
+    
+    			//충돌일 경우
+    			if (IsCollision(obj1, obj2)) {
+    
+    				//(1) FALSE임 -> 최초 충돌임.
+    				if (!it->second) {
+    					prev_collision_.insert(std::make_pair(cls_id.Id, true));
+    					obj1->get_collider()->OnCollisionEnter(*obj2);
+    					obj2->get_collider()->OnCollisionEnter(*obj1);
+    				}
+    
+    				//(2) TRUE임 -> 충돌중임
+    				else{
+    					it->second = true;
+    					obj1->get_collider()->OnCollisionStay(*obj2);
+    					obj2->get_collider()->OnCollisionStay(*obj1);
+    				}
+    				it->second = true;
+    
+    			}
+    			//충돌이 아닐 경우
+    			else {
+    				//(3) TRUE임 -> 충돌에서 빠져나옴.
+    				if (it->second) {
+    					obj1->get_collider()->OnCollisionExit(*obj2);
+    					obj2->get_collider()->OnCollisionExit(*obj1);
+    				}
+    				it->second = false;
+    			}
+    		}
+    	}
+    }
+    
+    bool CollisionManager::IsCollision(GObject* obj1, GObject* obj2)
+    {
+    	//충돌 여부: obj1과 obj2의 범위가 겹친다.
+    	// = x좌표간 거리가 둘의 가로 길이의 합의 절반보다 작고
+    	// y좌표간 거리가 둘의 세로 길이의 합의 절반보다 작다
+    	Collider* c1 = obj1->get_collider();
+    	Collider* c2 = obj2->get_collider();
+    	
+    
+    	return
+    		abs(c1->get_pos().x - c2->get_pos().x) < ((c1->get_scale().x + c2->get_scale().x) / 2)
+    		&& abs(c1->get_pos().y - c2->get_pos().y) < ((c1->get_scale().y + c2->get_scale().y) / 2);
+    }
+    
+    ```
+    
+    여기서 사용한 ULONGLONG형 id는
+    
+    
+    ```c++
+    union CollisionId {
+    	struct {
+    		UINT collider1_id;
+    		UINT collider2_id;
+    	};
+    	ULONGLONG Id;
+    };
+    ```
+    이렇게 생겼는데, union은 멤버들이 모두 같은 저장공간을 공유한다.
+    즉, 저장할 땐 각각 UINT 형식의 id를 저장할 수 있고
+    꺼내올 땐 둘의 비트열이 합쳐진 ULONGLONG 형의 Id를 가져올 수 있다.
+    
+    실제로 collider1_id를 1, collider2_id를 2로 넣고 Id를 가져와보면
+    0x0000 0002 0000 0001 이라는 값이 들어있다.
+    
+    \* 0x0000 0001 0000 0002가 아닌 이유는 그냥 비트열이 오른쪽 비트(낮은 주소)부터 채워지기 때문이다. 주소는 점점 증가하게 되어있는데, 
+    100번지에 CollisionId Cid를 저장한다면 100~103번지에 collider1_id, 104~107번지에 collider2_id가 나눠 저장될 것이다.
+    0x0000 0002 0000 0001은 가장 오른쪽 두 비트부터 왼쪽으로 가면서 100번지, 101번지, ... 이렇게 간다.
+    
+    
+    
+    ### 5. 충돌 테스트
+    
+    충돌이 잘 되는지 테스트해보자.
+    충돌체의 테두리는 기본적으로 초록인데, 충돌하면 빨간색으로, 충돌이 끝나면 다시 초록색으로 바꾸도록 한다.
+    그러기 위해 현재 충돌해있는 물체의 개수를 저장하고
+    
+    ```c++
+    //Collider.h
+    	int collision_count_;
+    ```
+    
+    생성자와 복사 생성자에서 각각 초기화를 추가해준 뒤,
+    
+    충돌이 시작될 때 +1
+    충돌이 끝날 때 -1 을 해준다.
+    
+    그리고 Render 함수에서 충돌해있는 물체가 0보다 클 때만 펜을 빨간색으로 바꾼다.
+    
+    ```c++
+    //Collider.cpp
+    #include "pch.h"
+    #include "Collider.h"
+    #include "GObject.h"
+    #include "SelectGDI.h"
+    
+    
+    UINT Collider::id_counter_ = 1;
+    
+    Collider::Collider()
+    	: id_(id_counter_++)
+    	, pos_offset_{}
+    	, scale_{}
+    	, owner_(nullptr)
+    	, collision_count_(0)
+    {
+    }
+    
+    Collider::Collider(const Collider& org)
+    	: id_(id_counter_++)
+    	, pos_offset_{org.pos_offset_}
+    	, scale_{org.scale_}
+    	, owner_(nullptr)
+    	, collision_count_(0)
+    {
+    }
+    
+    
+    
+    void Collider::Render(HDC hdc)
+    {
+    	//테두리 그리기
+    	PEN_TYPE pen_type = PEN_TYPE::GREEN;
+    	if (collision_count_) pen_type = PEN_TYPE::RED;
+    	SelectGdi _(hdc, pen_type);
+    	SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
+    	Rectangle(hdc
+    		, static_cast<int>(final_pos_.x - scale_.x / 2)
+    		, static_cast<int>(final_pos_.y - scale_.y / 2)
+    		, static_cast<int>(final_pos_.x + scale_.x / 2)
+    		, static_cast<int>(final_pos_.y + scale_.y / 2));
+    }
+    
+    
+    ```
+    
+    그리고 Player, Monster, Missile 클래스에서 각각 충돌체를 할당해준다.
+    (충돌체의 소멸은 ~GObject()에서 일괄적으로 하기 때문에 따로 소멸해주지 않아도 됨)
+    
+    
+    ```c++
+    //Player.cpp
+    Player::Player()
+    	: speed_(.2f) {
+    	texture_ = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\player.bmp"));
+    	Collider* collider = new Collider();
+    	collider->set_owner(this);
+    	collider->set_scale(Vector2{ 20, 20 });
+    	set_collider(collider);
+    }
+    void Player::Render(HDC hdc)
+    {
+    	TransparentBlt(
+    		hdc //목적지 dc
+    		, static_cast<int>(get_rect().left) //left 좌표
+    		, static_cast<int>(get_rect().top) //top 좌표
+    		, static_cast<int>(get_rect().right - get_rect().left)	//가로 길이
+    		, static_cast<int>(get_rect().bottom - get_rect().top)	//세로 길이
+    		, texture_->get_hdc() //소스 dc(=비트맵이 선택된 메모리dc)
+    		, 0 //비트맵의 left 좌표
+    		, 0 //비트맵의 top 좌표
+    		, texture_->get_width() //비트맵의 가로 길이
+    		, texture_->get_height() //비트맵의 세로 길이
+    		, RGB(255, 0, 255)); //무시할 픽셀 색상
+    
+    }
+    ```
+    
+    ```c++
+    //Monster.cpp
+    Monster::Monster()
+    	: move_speed_(.2f)
+    	, center_pos_(Vector2{0,0})
+    	, direction_(-1)
+    	, move_range_(0){
+    	Collider* collider = new Collider();
+    	collider->set_owner(this);
+    	collider->set_scale(Vector2{ 20, 20 });
+    	set_collider(collider);
+    }
+    
+    void Monster::Render(HDC hdc) {
+    	SelectGdi _(hdc, BRUSH_TYPE::HOLLOW);
+    
+    	Rect2 rect = get_rect();
+    	Rectangle(hdc
+    		, static_cast<int>(rect.left)
+    		, static_cast<int>(rect.top)
+    		, static_cast<int>(rect.right)
+    		, static_cast<int>(rect.bottom));
+    
+    }
+    ```
+    
+    ```c++
+    //Missile.cpp
+    Missile::Missile()
+    	: direction_(Vector2{ 0, 0 })
+    	, speed_(0.2f) {
+    	Collider* collider = new Collider();
+    	collider->set_owner(this);
+    	collider->set_scale(Vector2{ 5, 5 });
+    	set_collider(collider);
+    }
+    
+    void Missile::Render(HDC hdc)
+    {
+    	Ellipse(hdc
+    		, static_cast<int>(get_rect().left)
+    		, static_cast<int>(get_rect().top)
+    		, static_cast<int>(get_rect().right)
+    		, static_cast<int>(get_rect().bottom));
+    }
+    ```
+
+[![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiB6VTjHLb26PqebkzlfRjWAfrtnRFbcCTo1qiHQkxl7KpZ7emnFLr8qWCMGacIgQJaFcfVNhio4zH_knVf3i8n1yEWmeDfTZpY-2qudJN0lYGtB3CNdLG8ZInnzg4AAEGePJa06W6HSurV0c5xpDGnjJd1i4F3PCOVnrGb_subuk2P-_kirymGoW2enw/w640-h502/%EC%B6%A9%EB%8F%8C%ED%85%8C%EC%8A%A4%ED%8A%B8.gif)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiB6VTjHLb26PqebkzlfRjWAfrtnRFbcCTo1qiHQkxl7KpZ7emnFLr8qWCMGacIgQJaFcfVNhio4zH_knVf3i8n1yEWmeDfTZpY-2qudJN0lYGtB3CNdLG8ZInnzg4AAEGePJa06W6HSurV0c5xpDGnjJd1i4F3PCOVnrGb_subuk2P-_kirymGoW2enw/s1016/%EC%B6%A9%EB%8F%8C%ED%85%8C%EC%8A%A4%ED%8A%B8.gif)
+  
+
+    근데 지금은 충돌했을 때 각 상태에 따라 Collider 클래스의 OnCollision\~\~ 정적 코드만 실행이 되는데
+    게임을 만들려면 각 상태에 따른 콜백을 받아서 Collider 클래스의 OnCollision\~\~ 코드 안에서 일괄 실행하는 식으로 바꿔야하지 않을까 싶다.
+
