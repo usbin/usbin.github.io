@@ -14,7 +14,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Insub's Blog # the main title
+title: Insub # the main title
 
 tagline: Insub's Development Blog. # it will display as the sub-title
 
