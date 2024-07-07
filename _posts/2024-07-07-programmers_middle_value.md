@@ -7,7 +7,7 @@ categories:
 ---
 
 # 프로그래머스 - 중앙값 구하기
-<img src="../assets/img/2024-07-07-programmers_middle_value/2024-07-07-21-27-10.png" width="75%" />
+<img src="../assets/img/2024-07-07-programmers_middle_value/2024-07-07-21-27-10.png" width="75%" alt="img1" />
 
 기초 알고리즘 문제인데, c++을 몇 년만에 다시 공부하면서 quick sort 함수 구현을 해보게 되어서 글로 남긴다.
 

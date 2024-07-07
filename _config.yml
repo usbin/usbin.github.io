@@ -14,15 +14,9 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-<<<<<<< HEAD
 title: Insub's Blog # the main title
 
 tagline: Insub's Development Blog. # it will display as the sub-title
-=======
-title: Bin # the main title
-
-tagline: Bin' Development Blog. # it will display as the sub-title
->>>>>>> parent of 23b657b (.)
 
 description: >- # used by seo meta and the atom feed
   Development Blog.
