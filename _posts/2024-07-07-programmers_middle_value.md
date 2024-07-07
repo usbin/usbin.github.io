@@ -3,6 +3,7 @@ title: 프로그래머스 - 중앙값 구하기
 author: Insub
 date: 2024-07-07 00:00:00 +0900
 categories:
+- 개발 공부
 - 프로그래머스
 ---
 
