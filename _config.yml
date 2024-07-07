@@ -14,9 +14,15 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
+<<<<<<< HEAD
 title: Insub's Blog # the main title
 
 tagline: Insub's Development Blog. # it will display as the sub-title
+=======
+title: Bin # the main title
+
+tagline: Bin' Development Blog. # it will display as the sub-title
+>>>>>>> parent of 23b657b (.)
 
 description: >- # used by seo meta and the atom feed
   Development Blog.
@@ -117,15 +123,15 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: usbin/usbin.github.io # <gh-username>/<repo>
-    repo_id: R_kgDOMS0p5w
-    category: General
-    category_id: DIC_kwDOMS0p584CgnQM
-    mapping: pathname # optional, default to 'pathname'
-    strict: 0 # optional, default to '0'
-    input_position: top # optional, default to 'bottom'
-    lang: ko # optional, default to the value of `site.lang`
-    reactions_enabled: 1 # optional, default to the value of `1`
+    repo: "usbin/usbin.github.io" # <gh-username>/<repo>
+    repo_id: "R_kgDOMS0p5w"
+    category: "General"
+    category_id: "DIC_kwDOMS0p584CgnQM"
+    mapping: "pathname" # optional, default to 'pathname'
+    strict: # optional, default to '0'
+    input_position: "top" # optional, default to 'bottom'
+    lang: "ko" # optional, default to the value of `site.lang`
+    reactions_enabled: # optional, default to the value of `1`
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
