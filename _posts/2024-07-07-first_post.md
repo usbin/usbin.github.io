@@ -1,6 +1,6 @@
 ---
 title: 이전 블로그 주소
-author: Nebis
+author: Insub
 date: 2024-07-07 00:00:00 +0900
 categories:
 - 기타
