@@ -64,7 +64,7 @@ int solution(int array[], size_t array_len) {
 
 > **<퀵 정렬 알고리즘>**
 <br/>첫번째 값을 pivot으로 잡아서, left는 +1씩 증가시켜가며 pivot보다 큰 값을 만날 때까지 이동하고, right는 -1씩 감소시켜가며 pivot보다 작은 값을 만날 때까지 이동한다.
-<br/>left와 right가 둘다 정지했다면, left\<right라는 가정 하에 두 자리의 값을 swap한다.
+<br/>left와 right가 둘다 정지했다면, left \< right라는 가정 하에 두 자리의 값을 swap한다.
 <br/>
 <br/>그리고 다시 위의 동작을 반복한다.
 <br/>위의 동작은 left가 right를 넘어설 때까지 반복된다.
