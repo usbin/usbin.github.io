@@ -7,7 +7,7 @@ categories:
 - 프로그래머스
 ---
 
-<img src="../assets/img/2024-07-09-programmers_pizza02/2024-07-09-20-46-42.png" width="75%" />
+<img src="../assets/img/2024-07-09-programmers_pizza02/2024-07-09-20-46-42.png" width="75%" alt="" />
 
 ## 접근
 
