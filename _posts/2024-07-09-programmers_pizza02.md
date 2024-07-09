@@ -21,7 +21,7 @@ n과 6의 최소공배수를 구하는 문제다.
 
 코드로 표현하면 다음과 같다.
 
-``` C++
+```c++
 int gcd(int b, int s){
     if(s==0) return b;
     return gcd(s, b%s);
@@ -43,7 +43,7 @@ int gcd(int b, int s){
 
 ## 소스코드
 
-```
+```c++
 #include <string>
 #include <vector>
 
