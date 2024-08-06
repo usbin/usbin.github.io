@@ -9,6 +9,7 @@ categories:
 
 <img src="../assets/img/2024-07-09-programmers_pizza02/2024-07-09-20-46-42.png" width="75%" alt="" />
 
+
 ## 접근
 
 n과 6의 최소공배수를 구하는 문제다.
