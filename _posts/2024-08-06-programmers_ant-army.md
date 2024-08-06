@@ -94,10 +94,7 @@ int solution(int HP) {
 
     for(int hp=1; hp<=HP; hp++){
         for(int atk=1; atk<=hp; atk++){
-            if(dp[hp] == 0){
-                dp[hp] = dp[hp-1] + dp[1];
-            }
-            else if((dp[hp]+1 > dp[hp-atk] + dp[atk])){
+            if(dp[hp] == 0 || (dp[hp]+1 > dp[hp-atk] + dp[atk])){
                 dp[hp] = dp[hp-atk]+dp[atk];
             }
         }
