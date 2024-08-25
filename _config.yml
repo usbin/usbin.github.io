@@ -14,9 +14,9 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Insub # the main title
+title: Inseb # the main title
 
-tagline: Insub's Development Blog. # it will display as the sub-title
+tagline: Inseb's Development Blog. # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Development Blog.
@@ -34,7 +34,7 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Insub
+  name: Inseb
   email: usbin99@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
