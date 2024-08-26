@@ -1,6 +1,6 @@
 ---
 title: 프로그래머스 - 피자 나눠 먹기(2)
-author: Insub
+author: Me
 date: 2024-07-09 00:00:00 +0900
 categories:
 - 개발 공부

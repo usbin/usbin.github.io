@@ -1,6 +1,6 @@
 ---
 title: 프로그래머스 - 개미 군단
-author: Insub
+author: Me
 date: 2024-08-06 00:00:00 +0900
 categories:
 - 개발 공부

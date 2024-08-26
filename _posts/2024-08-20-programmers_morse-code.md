@@ -1,6 +1,6 @@
 ---
 title: 프로그래머스 - 모스부호
-author: Insub
+author: Me
 date: 2024-08-20 00:00:00 +0900
 categories:
 - 개발 공부
