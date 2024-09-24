@@ -6,7 +6,7 @@ categories:
 - 개발 공부
 - 프로그래머스
 ---
-<img src="../assets/img/2024-09-24-programmers_more-spicy/2024-09-24-21-16-26.png" width="75%" alt=""/>
+<img src="../assets/img/2024-09-24-programmers_more-spicy/2024-09-24-21-16-26.png" width="100%" alt=""/>
 
 ## 접근
 처음엔 연결리스트로 구현했는데, 시간초과와 segmentation fault가 왕창 나면서 몇몇 테스트 케이스를 통과하지 못했다.
