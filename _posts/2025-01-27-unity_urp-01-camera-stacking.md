@@ -56,10 +56,10 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-30-32.png" width="100%" alt="image02"/>
 
 - Edit > Project Settings > Quality > Rendering 아래의 Render Pipeline Asset 항목에 샘플 URP Asset을 넣는다.
-<center>
-<img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="50%" alt="image03" align="left" />
-<img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="50%" alt="image04" align="right" />
-</center>
+    <div>
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="50%" alt="image03" align="left" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="50%" alt="image04" align="right" />
+    </div>
 
 
 
@@ -72,7 +72,7 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
          <th style="word-wrap: break-word; word-break: break-word; width: 100%;">Mixed field of view</th>
     </tr>
     <tr>
-        <td style="word-wrap: break-word; word-break: break-word;"> CameraStacking/MixedFOV 예제는 일인칭 애플리케이션에서 카메라 스태킹을 사용하여 캐릭터가 장착한 아이템이 환경에 클리핑되는 문제는 방지하는 방법을 보여줍니다. 이렇게 설정하면 환경 카메라와 장착된 항목 카메라에 대해 서로 다른 시야각(FOV)을 사용할 수도 있습니다.</td>
+        <td style="word-wrap: break-word; word-break: break-word; white-space: normal; padding: 10px;"> CameraStacking/MixedFOV 예제는 일인칭 애플리케이션에서 카메라 스태킹을 사용하여 캐릭터가 장착한 아이템이 환경에 클리핑되는 문제는 방지하는 방법을 보여줍니다. 이렇게 설정하면 환경 카메라와 장착된 항목 카메라에 대해 서로 다른 시야각(FOV)을 사용할 수도 있습니다.</td>
     </tr>
 </table>
 
@@ -92,21 +92,21 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 
 그럼 샘플 씬이 어떻게 구성되어 있는지 살펴보자.
 
-<center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-38-56.png" width="75%" alt="image06"/></center>
+<center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-38-56.png" width="90%" alt="image06"/></center>
 
 오브젝트들은 중요하지 않으니 넘어가고, 카메라가 두 개로 이루어져있는 걸 볼 수 있다.
 
 Level Camera와 Gun Camera.
 
 - Level Camera의 설정
-<center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-00-14.png" width="75%" alt="image07" /></center>
-Render Type은 Base(아래)고, Projection은 Perspective(원근감 사용), Culling Mask(출력할 대상)에는 <center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-02-08.png" width="75%" alt="image09"/></center> UI가 빠져있는 걸 확인할 수 있다. 또한 Output은 Display 1로 설정되어 있으며 가장 중요한 Stack 설정에 Gun Camera가 셋팅되어 있다.
+<center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-00-14.png" width="90%" alt="image07" /></center>
+Render Type은 Base(아래)고, Projection은 Perspective(원근감 사용), Culling Mask(출력할 대상)에는 <center><img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-02-08.png" width="90%" alt="image09"/></center> UI가 빠져있는 걸 확인할 수 있다. 또한 Output은 Display 1로 설정되어 있으며 가장 중요한 Stack 설정에 Gun Camera가 셋팅되어 있다.
 덧붙여 Projection Clipping Planes은 Near가 0.2, Far가 1000으로 비교적 넓은 범위를 포함하고 있음을 알 수 있다.
 
 <br/>
 
 - Gun Camera의 설정
-<center> <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-01-09.png" width="75%" alt="image08" /></center>
+<center> <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-19-01-09.png" width="90%" alt="image08" /></center>
 Render Type은 Overlay(맨 위에 출력. Stack 카메라로 추가하기 위해선 반드시 Overlay 타입이어야 한다.), Projection은 Perspective(원근감 사용), Culling Mask는 UI뿐이다. 그리고 Clipping Planes도 Near 0.1, Far 1.2로 비교적 좁다. 총만 렌더링하면 되기 때문에 불필요한 공간을 모두 잘라낸 것이다.
 
 
