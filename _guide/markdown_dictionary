@@ -14,3 +14,25 @@
 
 # 링크
 [Unity 공식 문서: 샘플 패키지](https://docs.unity3d.com/kr/Packages/com.unity.render-pipelines.universal@15.0/manual/package-sample-urp-package-samples.html)
+
+
+# 이미지를 가로로 배치
+<div style="display: flex; justify-content: space-between;">
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="49%" alt="image03" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="49%" alt="image04" />
+</div>
+
+# 이미지를 가로로 배치하며 캡션 달기
+<div style="display: flex; justify-content: space-between; ">
+<figure style="width:49%; text-align: center; margin:0px; padding:0px;">
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-32-51.png"  alt="image10"/>
+<figcaption>Overlay Left 카메라</figcaption>
+</figure>
+<figure style="width:49%; text-align: center; margin:0px; padding:0px;">
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-33-17.png" alt="image11" />
+<figcaption>Overlay Right 카메라</figcaption>
+</figure>
+</div>
+
+# 이전까지의 스타일을 삭제
+<div style="clear:both;"></div>

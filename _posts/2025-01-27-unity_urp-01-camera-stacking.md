@@ -56,9 +56,9 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-30-32.png" width="100%" alt="image02"/>
 
 - Edit > Project Settings > Quality > Rendering 아래의 Render Pipeline Asset 항목에 샘플 URP Asset을 넣는다.
-    <div>
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="50%" alt="image03" align="left" />
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="50%" alt="image04" align="right" />
+    <div style="display: flex; justify-content: space-between;">
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="49%" alt="image03" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="49%" alt="image04" />
     </div>
 
 
