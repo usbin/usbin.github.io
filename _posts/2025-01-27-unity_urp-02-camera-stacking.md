@@ -26,8 +26,8 @@ categories:
 
 (1) 메인 카메라
 <div style="display: flex; justify-content: space-between;">
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png" width="49%" alt="image01" />
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-05-33.png" width="49%" alt="image02"/>
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png" width="100%" alt="image01" />
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-05-33.png" width="100%" alt="image02"/>
 </div>
 
 난간과 UI를 렌더링한다. 오른쪽 이미지는 메인 카메라만 켠 상태의 게임뷰이다.
@@ -74,11 +74,11 @@ categories:
 동시에 Post Processing을 사용 여부에 따른 결과물 차이도 보여주는 듯하다.
 
 **(1) Base 카메라**
-- Base Left 카메라
-  <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-29-04.png" style="display: flex" width="75%" alt="image08"/>
+- Base Left 카메라 \
+  <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-29-04.png" style="display: block" width="75%" alt="image08"/>
   왼쪽 카메라는 View port의 x,y는 (0,0)이고 width는 0.5로 설정되어있다.
-- Base Right 카메라
-  <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-30-44.png" style="display: flex" width="75%" alt="image09" />
+- Base Right 카메라 \
+  <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-30-44.png" style="display: block" width="75%" alt="image09" />
   오른쪽 카메라는 View port의 x,y는 (0.5, 0)이고 width는 0.5로 설정되어있다.
 
 각각 좌우 반쪽씩을 차지하도록 Viewport에 설정되어있는 것을 확인할 수 있다.
