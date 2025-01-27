@@ -26,8 +26,8 @@ categories:
 
 (1) 메인 카메라
 <div style="display: flex; justify-content: space-between;">
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png" width="100%" alt="image01" />
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-05-33.png" width="100%" alt="image02"/>
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png" width="99%" alt="image01" />
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-05-33.png" width="99%" alt="image02"/>
 </div>
 
 난간과 UI를 렌더링한다. 오른쪽 이미지는 메인 카메라만 켠 상태의 게임뷰이다.
@@ -35,8 +35,8 @@ categories:
 
 (2) City 카메라
 <div style="display: flex; justify-content: space-between;">
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-09-15.png" width="49%" alt="image03"/>
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-11-40.png" width="49%" alt="image04"/>
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-09-15.png" width="99%" alt="image03"/>
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-11-40.png" width="99%" alt="image04"/>
 </div>
 
 도시를 렌더링한다. 오른쪽 이미지를 보면 게임뷰에 도시가 더해져서 보인다.
@@ -44,8 +44,8 @@ categories:
 
 (3) Skybox 카메라
 <div style="display: flex; justify-content: space-between;">
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-04.png" width="49%" alt="image05" />
-<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-21.png" width="49%" alt="image06" />
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-04.png" width="99%" alt="image05" />
+<img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-21.png" width="99%" alt="image06" />
 </div>
 하늘을 렌더링한다. 오른쪽 이미지를 보면 게임뷰에 하늘과 반투명한 행성이 더해져서 보인다.
 

@@ -17,9 +17,10 @@
 
 
 # 이미지를 가로로 배치
+# (49%가 아니라 99%인 이유. img 상위 항목으로 a가 생겨나서 들어가기 때문에, 부모항목 기준으로 %를 차지하게 됨.)
 <div style="display: flex; justify-content: space-between;">
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="49%" alt="image03" />
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="49%" alt="image04" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="99%" alt="image03" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="99%" alt="image04" />
 </div>
 
 # 이미지를 가로로 배치하며 캡션 달기
