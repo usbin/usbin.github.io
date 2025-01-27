@@ -11,7 +11,7 @@ categories:
 
 <table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
     <tr>
-        <td style="word-wrap: break-word; word-break: break-word;"> <span style="font-weight:bold">유니버설 렌더 파이프라인(URP)</span>은 Unity에서 제작한 사전 빌드된 스크립터블 렌더 파이프라인입니다. URP는 아티스트 친화적 워크플로를 통해 모바일, 고사양 콘솔, PC 등 다양한 플랫폼에서 최적화된 그래픽스를 쉽고 빠르게 구현하도록 도와줍니다.</td>
+        <td style="word-wrap: break-word; word-break: break-word; white-space: normal; padding: 10px;"> <span style="font-weight:bold">유니버설 렌더 파이프라인(URP)</span>은 Unity에서 제작한 사전 빌드된 스크립터블 렌더 파이프라인입니다. URP는 아티스트 친화적 워크플로를 통해 모바일, 고사양 콘솔, PC 등 다양한 플랫폼에서 최적화된 그래픽스를 쉽고 빠르게 구현하도록 도와줍니다.</td>
     </tr>
 </table>
 

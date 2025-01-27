@@ -1,10 +1,10 @@
 # 자동 줄바꿈 테이블
 <table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
     <tr>
-         <th style="word-wrap: break-word; word-break: break-word; width: 100%;">헤더1</th>
+         <th style="word-wrap: break-word; word-break: break-word; width: 100%; white-space: normal; padding: 10px;">헤더1</th>
     </tr>
     <tr>
-        <td style="word-wrap: break-word; word-break: break-word;">바디1</td>
+        <td style="word-wrap: break-word; word-break: break-word; white-space: normal; padding: 10px;">바디1</td>
     </tr>
 </table>
 
