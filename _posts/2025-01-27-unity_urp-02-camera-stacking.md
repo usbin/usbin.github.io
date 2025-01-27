@@ -76,9 +76,11 @@ categories:
 **(1) Base 카메라**
 - Base Left 카메라 \
   <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-29-04.png" style="display: block" width="75%" alt="image08"/>
+
   왼쪽 카메라는 View port의 x,y는 (0,0)이고 width는 0.5로 설정되어있다.
 - Base Right 카메라 \
   <img src="../assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-30-44.png" style="display: block" width="75%" alt="image09" />
+
   오른쪽 카메라는 View port의 x,y는 (0.5, 0)이고 width는 0.5로 설정되어있다.
 
 각각 좌우 반쪽씩을 차지하도록 Viewport에 설정되어있는 것을 확인할 수 있다.
