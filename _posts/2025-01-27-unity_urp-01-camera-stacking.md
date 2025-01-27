@@ -9,9 +9,11 @@ categories:
 
 # URP(Universial Render Pipeline)에 대하여
 
-||
-|---|
-| **유니버설 렌더 파이프라인(URP)은** Unity에서 제작한 사전 빌드된 스크립터블 렌더 파이프라인입니다.<br/>URP는 아티스트 친화적 워크플로를 통해 모바일, 고사양 콘솔, PC 등 다양한 플랫폼에서 최적화된 그래픽스를 쉽고 빠르게 구현하도록 도와줍니다.|
+<table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
+    <tr>
+        <td style="word-wrap: break-word; word-break: break-word;"> <span style="font-weight:bold">유니버설 렌더 파이프라인(URP)</span>은 Unity에서 제작한 사전 빌드된 스크립터블 렌더 파이프라인입니다. URP는 아티스트 친화적 워크플로를 통해 모바일, 고사양 콘솔, PC 등 다양한 플랫폼에서 최적화된 그래픽스를 쉽고 빠르게 구현하도록 도와줍니다.</td>
+    </tr>
+</table>
 
 먼저, 렌더 파이프라인이란 무엇인가.
 
@@ -54,19 +56,26 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-30-32.png" width="100%" alt="image02"/>
 
 - Edit > Project Settings > Quality > Rendering 아래의 Render Pipeline Asset 항목에 샘플 URP Asset을 넣는다.
+<center>
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="50%" alt="image03" align="left" />
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="50%" alt="image04" align="right" />
-
+</center>
 
 
 
 <div style="clear:both;"></div>
 
+<br/>
+<br/>
+<table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
+    <tr>
+         <th style="word-wrap: break-word; word-break: break-word; width: 100%;">Mixed field of view</th>
+    </tr>
+    <tr>
+        <td style="word-wrap: break-word; word-break: break-word;"> CameraStacking/MixedFOV 예제는 일인칭 애플리케이션에서 카메라 스태킹을 사용하여 캐릭터가 장착한 아이템이 환경에 클리핑되는 문제는 방지하는 방법을 보여줍니다. 이렇게 설정하면 환경 카메라와 장착된 항목 카메라에 대해 서로 다른 시야각(FOV)을 사용할 수도 있습니다.</td>
+    </tr>
+</table>
 
-|||
-|:---:|---|
-|Mixed field of view|CameraStacking/MixedFOV 예제는 일인칭 애플리케이션에서 카메라 스태킹을 사용하여 캐릭터가 장착한 아이템이 환경에 클리핑되는 문제는 방지하는 방법을 보여줍니다. 이렇게 설정하면 환경 카메라와 장착된 항목 카메라에 대해 서로 다른 시야각(FOV)을 사용할 수도 있습니다.|
----
 
 일단 Mixed field of view에 대한 유니티의 설명은 이렇다.
 글만 봐선 무슨 말인지 몰랐는데 샘플 씬을 열어보니
