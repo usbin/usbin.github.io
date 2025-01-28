@@ -14,9 +14,9 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Inseb # the main title
+title: 해타의 개발 블로그 # the main title
 
-tagline: Inseb's Development Blog. # it will display as the sub-title
+tagline: "유니티 개발(C#) / CS, 알고리즘, 코딩테스트 공부" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Development Blog.
@@ -34,7 +34,7 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Inseb
+  name: 해타
   email: usbin99@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
@@ -96,7 +96,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: assets/img/dino.png
+avatar: assets/img/avatar.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
