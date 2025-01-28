@@ -7,7 +7,11 @@ categories:
 - Unity
 ---
 
-이전 포스팅: [[Unity] URP 01 - Camera Stacking Sample : Mixed field of view](https://usbin.github.io/posts/unity_urp-01-camera-stacking/)
+> 이전 포스팅:
+> - [[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking : Mixed field of view](https://usbin.github.io/posts/unity_urp-01-camera-stacking/)
+
+---
+<br/>
 
 ## [샘플 패키지 02] Camera Stacking: 3D skybox
 

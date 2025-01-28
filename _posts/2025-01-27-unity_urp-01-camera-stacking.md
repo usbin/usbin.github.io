@@ -1,5 +1,5 @@
 ---
-title: "[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking: Mixed field of view"
+title: "[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking : Mixed field of view"
 author: Me
 date: 2025-01-27 00:00:00 +0900
 categories:
