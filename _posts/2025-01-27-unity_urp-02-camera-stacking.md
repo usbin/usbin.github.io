@@ -1,5 +1,5 @@
 ---
-title: "[Unity] URP 02 - Camera Stacking Sample : 3D skybox, Split screen"
+title: "[Unity] URP 샘플 패키지 학습 2편 - Camera Stacking : 3D skybox, Split screen"
 author: Me
 date: 2025-01-27 00:00:00 +0900
 categories:
@@ -9,7 +9,7 @@ categories:
 
 이전 포스팅: [[Unity] URP 01 - Camera Stacking Sample : Mixed field of view](https://usbin.github.io/posts/unity_urp-01-camera-stacking/)
 
-# 3D skybox
+## [샘플 패키지 02] Camera Stacking: 3D skybox
 
 <table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
     <tr>
@@ -55,7 +55,7 @@ categories:
 월드상에서 난간, 도시, 하늘의 위성은 각각 떨어져있지만 이를 비추는 카메라가 최종적으로 메인 카메라에 Stack됨으로써 하나의 화면에 겹쳐져 보이게 된다.
 
 
-# Split screen
+## [샘플 패키지 03] Camera Stacking: Split screen
 
 <table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
     <tr>

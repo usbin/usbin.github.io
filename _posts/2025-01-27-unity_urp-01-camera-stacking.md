@@ -1,5 +1,5 @@
 ---
-title: "[Unity] URP 01 - Camera Stacking Sample : Mixed field of view"
+title: "[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking: Mixed field of view"
 author: Me
 date: 2025-01-27 00:00:00 +0900
 categories:
@@ -42,11 +42,12 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 
 <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-27-11.png" width="100%" alt="image01"/>
 
-## URP 샘플 패키지 사용해보기
+
+> ## URP 샘플 패키지 사용해보기
 
 
 
-### (1) Camera Stacking: Mixed field of view
+## [샘플 패키지 01] Camera Stacking: Mixed field of view
 
 첫번째 예제인 Mixed field of view 샘플 패키지를 사용해보자.
 
@@ -57,8 +58,8 @@ BRP는 유니티 2022 이전에 사용되던 렌더 파이프라인이고, URP�
 
 - Edit > Project Settings > Quality > Rendering 아래의 Render Pipeline Asset 항목에 샘플 URP Asset을 넣는다.
     <div style="display: flex; justify-content: space-between;">
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="49%" alt="image03" />
-    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="49%" alt="image04" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-08.png" width="100%" alt="image03" />
+    <img src="../assets/img/2025-01-27_unity_urp-01-camera-stacking/2025-01-27-18-32-42.png" width="100%" alt="image04" />
     </div>
 
 
