@@ -14,7 +14,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: 해타의 블로그 # the main title
+title: HAETA # the main title
 
 tagline: "유니티 개발(C#) / CS, 알고리즘, 코딩테스트 공부" # it will display as the sub-title
 
@@ -28,8 +28,8 @@ url: "https://usbin.github.io"
 github:
   username: usbin # change to your github username
 
-twitter:
-  username: twitter_username # change to your twitter username
+# twitter:
+#   username: twitter_username # change to your twitter username
 
 social:
   # Change to your full name.
@@ -225,3 +225,6 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+plugins:
+  - jekyll-emoji

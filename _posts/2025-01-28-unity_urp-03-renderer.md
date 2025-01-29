@@ -1,15 +1,18 @@
 ---
 title: "[Unity] URP 샘플 패키지 학습 3편 - Renderer : Ambient occlusion, Glitch effect, Keep frame"
 author: Me
-date: 2025-01-28 14:35:30 +0900
+date: "2025-01-28 14:35:30 +0900"
 categories:
 - 개발 공부
 - Unity
 ---
 
+{% assign post1 = site.posts | where: "url", "/posts/unity_urp-01-camera-stacking/" | first %}
+{% assign post2 = site.posts | where: "url", "/posts/unity_urp-02-camera-stacking/" | first %}
+
 > 이전 포스팅:
-> - [[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking : Mixed field of view](https://usbin.github.io/posts/unity_urp-01-camera-stacking/)
->  - [[Unity] URP 샘플 패키지 학습 2편 - Camera Stacking : 3D skybox, Split screen](https://usbin.github.io/posts/unity_urp-02-camera-stacking/)
+> - [{{post1.title}}]({{post1.url}})
+> - [{{post2.title}}]({{post2.url}})
 
 ---
 <br/>

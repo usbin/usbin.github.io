@@ -1,14 +1,17 @@
 ---
 title: "[Unity] URP 샘플 패키지 학습 2편 - Camera Stacking : 3D skybox, Split screen"
 author: Me
-date: 2025-01-27 00:00:00 +0900
+date: "2025-01-27 00:00:00 +0900"
 categories:
 - 개발 공부
 - Unity
 ---
 
+<br/>
+{% assign post1 = site.posts | where: "url", "/posts/unity_urp-01-camera-stacking/" | first %}
+
 > 이전 포스팅:
-> - [[Unity] URP 샘플 패키지 학습 1편 - Camera Stacking : Mixed field of view](https://usbin.github.io/posts/unity_urp-01-camera-stacking/)
+> - [{{ post1.title }} ]({% post_url 2025-01-27-unity_urp-01-camera-stacking %})
 
 ---
 <br/>

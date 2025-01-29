@@ -5,6 +5,7 @@
 prod=false
 command="bundle exec jekyll s -l"
 host="127.0.0.1"
+port="4000"
 
 help() {
   echo "Usage:"
@@ -13,7 +14,8 @@ help() {
   echo
   echo "Options:"
   echo "     -H, --host [HOST]    Host to bind to."
-  echo "     -p, --production     Run Jekyll in 'production' mode."
+  echo "     -P, --port [:PORT]   Port to bind to."
+  echo "     -prod, --production     Run Jekyll in 'production' mode."
   echo "     -h, --help           Print this help information."
 }
 
@@ -24,7 +26,11 @@ while (($#)); do
     host="$2"
     shift 2
     ;;
-  -p | --production)
+  -P | --port)
+    port="$2"
+    shift 2
+    ;;
+  -prod | --production)
     prod=true
     shift
     ;;
@@ -40,7 +46,7 @@ while (($#)); do
   esac
 done
 
-command="$command -H $host"
+command="$command -H $host --port $port"
 
 if $prod; then
   command="JEKYLL_ENV=production $command"

@@ -1,3 +1,49 @@
+
+
+# 포스트 머릿말 쓰는 법
+(1) 제목
+title: 포스팅 하는 방법
+(2) 시각 표시
+date: 2020-05-23 02:07:08 +9:00
+(3) tags, categories
+ex1)
+tags: [value1,value2,...]
+ex2)
+tags:
+- value1
+- value2
+ex3)
+tags: value1 value2(공백으로_구분)
+(4) 주소 수동 지정
+permalink: /tip/2020/05/23/jekyll에서-포스팅-하는-방법.md
+(5) 공개 여부
+published: true
+(6) 사용자 지정 변수
+---
+author: fienestar
+---
+{{ page.author }}
+(7) 레이아웃 수동 지정
+defaults:
+  -
+    scope:
+      path: "_post" # 공백을 지정하면 모든 파일을 의미한다.
+    values:
+      layout: "my_layout" # _layouts/my_layout
+
+
+
+# 포스트 링크
+date-title # _post 폴더 내
+/path/date-title # _post의 하위폴더에 있을 경우에 _post 기준 상대경로로
+ex1) {% post_url /tip/2020-05-24-마크다운-작성법 %}
+
+
+# 포스트 url로 title 가져오기
+{% assign post1 = site.posts | where: "url", "/posts/unity_urp-01-camera-stacking/" | first %}
+{{ post1.title }}
+
+
 # 자동 줄바꿈 테이블
 <table style="table-layout: fixed; width: 100%; border: 1px solid gray;">
     <tr>
@@ -11,6 +57,9 @@
 
 # 볼드체
 <span style="font-weight:bold">내용</span>
+
+# 밑줄
+<u>밑줄 칠 텍스트</u>
 
 # 링크
 [Unity 공식 문서: 샘플 패키지](https://docs.unity3d.com/kr/Packages/com.unity.render-pipelines.universal@15.0/manual/package-sample-urp-package-samples.html)
@@ -37,3 +86,4 @@
 
 # 이전까지의 스타일을 삭제
 <div style="clear:both;"></div>
+
