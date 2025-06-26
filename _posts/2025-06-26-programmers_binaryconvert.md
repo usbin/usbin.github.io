@@ -87,7 +87,7 @@ vector<int> solution(string s) {
 
 문제는 바로 BinaryText 부분이다.
 
-```
+```c++
 string BinaryText(int n) {
     string s = "";
     int k = 1;
@@ -123,7 +123,7 @@ string BinaryText(int n) {
 
 챗지피티가 코드를 다시 짜줬다.
 
-```
+```c++
 string BinaryText(int n){
     string s = "";
     
