@@ -87,3 +87,16 @@ ex1) {% post_url /tip/2020-05-24-마크다운-작성법 %}
 # 이전까지의 스타일을 삭제
 <div style="clear:both;"></div>
 
+
+# 콜아웃
+
+> [!NOTE]
+> NOTE 테스트
+
+> [!TIP]
+
+> [!IMPORTANT]
+
+> [!WARNING]
+
+> [!CAUTION]

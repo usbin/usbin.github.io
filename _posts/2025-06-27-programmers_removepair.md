@@ -4,7 +4,7 @@ author: Me
 date: 2025-06-27 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 <img src="../assets/img/2025-06-27-programmers_removepair/2025-06-27-21-17-55.png" width="99%" alt="" />
 

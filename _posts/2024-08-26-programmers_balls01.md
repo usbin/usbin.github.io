@@ -4,7 +4,7 @@ author: Me
 date: 2024-08-26 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 <img src="../assets/img/2024-08-20-programmers_balls01/2024-08-26-20-54-47.png" width="75%" alt=""/>
 

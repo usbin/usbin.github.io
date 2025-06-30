@@ -4,7 +4,7 @@ author: Me
 date: 2024-07-07 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 
 <img src="../assets/img/2024-07-07-programmers_middle_value/2024-07-07-21-27-10.png" width="75%" alt="img1" />

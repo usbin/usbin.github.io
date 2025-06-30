@@ -4,7 +4,7 @@ author: Me
 date: 2025-06-25 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 
 <img src="../assets/img/2025-06-25-programmers_makeminvalue/2025-06-25-21-28-29.png" width="90%" alt="" />

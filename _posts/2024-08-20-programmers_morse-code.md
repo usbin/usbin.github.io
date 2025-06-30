@@ -4,7 +4,7 @@ author: Me
 date: 2024-08-20 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 <img src="../assets/img/2024-08-20-programmers_morse-code/2024-08-20-20-55-06.png" width="100%" alt="" />
 

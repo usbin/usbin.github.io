@@ -4,7 +4,7 @@ author: Me
 date: 2024-07-09 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 
 <img src="../assets/img/2024-07-09-programmers_pizza02/2024-07-09-20-46-42.png" width="75%" alt="" />

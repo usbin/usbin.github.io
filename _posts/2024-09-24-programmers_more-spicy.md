@@ -4,7 +4,7 @@ author: Me
 date: 2024-09-24 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 <img src="../assets/img/2024-09-24-programmers_more-spicy/2024-09-24-21-16-26.png" width="100%" alt=""/>
 

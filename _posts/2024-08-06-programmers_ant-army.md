@@ -4,7 +4,7 @@ author: Me
 date: 2024-08-06 00:00:00 +0900
 categories:
 - 개발 공부
-- 프로그래머스
+- 알고리즘
 ---
 
 <img src="../assets/img/2024-08-06-programmers_ant-army/2024-08-06-20-48-26.png" width="75%" alt=""/>
