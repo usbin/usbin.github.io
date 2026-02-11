@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-11-테스트.md",
+                "file": "_tabs/tags.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-11-테스트"
+              "title": "tags"
             }
           }
         ]
@@ -219,6 +219,10 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "_tabs/categories.md",
+    "_tabs/archives.md",
+    "_tabs/about.md",
+    "_posts/2026-02-11-테스트.md",
     "__metadata__/template/태그 메타데이터.md",
     "__metadata__/template/컬럼 만들기 by Multi Column Markdown.md",
     "__metadata__/template/컬럼 만들기 by HTML.md",
@@ -250,8 +254,6 @@
     "__metadata__/asset/20250728-0737-58.0493530.mp4",
     "__metadata__/asset",
     "__metadata__",
-    "_tabs/categories.md",
-    "_posts/2026-02-11-테스트.md",
     "홈/@Inbox/퇴직금을 향한 여정.md",
     "홈/@Inbox/커리어계획서.md",
     "홈/@홈.Index.md",
@@ -261,8 +263,6 @@
     "홈/Project/LogialbaErp/취직 시 어필할 자료.md",
     "홈/Project/LogialbaErp/역기획서.md",
     "홈/Project/LogialbaErp/0.entry.md",
-    "홈/@Inbox/리눅스2급 2차 수험번호.md",
-    "업무/z.Archive/스카이워크/인수인계_걸글로브.md",
     "업무/z.Archive/스카이워크/생활/@연차 기록.base",
     "홈/Resource/포맷 후 정보들",
     "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",

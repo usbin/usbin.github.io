@@ -1,12 +1,24 @@
 {
   "recentFiles": [
     {
-      "basename": "2026-02-11-테스트",
-      "path": "_posts/2026-02-11-테스트.md"
+      "basename": "tags",
+      "path": "_tabs/tags.md"
     },
     {
       "basename": "categories",
       "path": "_tabs/categories.md"
+    },
+    {
+      "basename": "archives",
+      "path": "_tabs/archives.md"
+    },
+    {
+      "basename": "about",
+      "path": "_tabs/about.md"
+    },
+    {
+      "basename": "2026-02-11-테스트",
+      "path": "_posts/2026-02-11-테스트.md"
     },
     {
       "basename": "취직 시 어필할 자료",
@@ -187,18 +199,6 @@
     {
       "basename": "월정액",
       "path": "홈/Area/게임/신월동행/월정액.md"
-    },
-    {
-      "basename": "월간 영입 패키지",
-      "path": "홈/Area/게임/신월동행/월간 영입 패키지.md"
-    },
-    {
-      "basename": "월간 영입 특별 배송 패키지",
-      "path": "홈/Area/게임/신월동행/월간 영입 특별 배송 패키지.md"
-    },
-    {
-      "basename": "@모모통장.index",
-      "path": "홈/Area/@모모통장.index.md"
     }
   ],
   "omittedPaths": [],
