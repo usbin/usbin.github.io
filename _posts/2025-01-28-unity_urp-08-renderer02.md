@@ -3,9 +3,9 @@ title: "[Unity] URP 샘플 패키지 학습 ?편 - Renderer02"
 author: Me
 date: 2025-01-29 14:35:00 +0900
 categories:
-- 개발 공부
-- Unity
-published: false
+  - 개발 공부
+  - Unity
+published: true
 ---
 
 {% assign post1 = site.posts | where: "url", "/posts/unity_urp-01-camera-stacking/" | first %}
