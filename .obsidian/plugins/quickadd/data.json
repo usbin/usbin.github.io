@@ -1,0 +1,138 @@
+{
+  "choices": [
+    {
+      "id": "ee9b5da8-3c58-4eed-8676-59c73012713d",
+      "name": "insert-inline-quote",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "insert-inline-quote",
+        "id": "2ebe7e01-7da3-459f-8366-c2d1c48fc0f6",
+        "commands": [
+          {
+            "name": "quickadd_insert-inline-quote",
+            "type": "UserScript",
+            "id": "42747f12-7863-4a21-be18-f00ac11a07c3",
+            "path": "_cabinet/quickadd_insert-inline-quote.js",
+            "settings": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "c12a433a-fe5b-4ed7-8d37-b09f6157ac3b",
+      "name": "insert-callout",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "insert-callout",
+        "id": "235acbcf-400c-4fb9-bbd4-c48247bcdbfb",
+        "commands": [
+          {
+            "name": "quickadd_insert-callout",
+            "type": "UserScript",
+            "id": "496910bd-e432-4cad-afc5-89ad36eeefc0",
+            "path": "_cabinet/quickadd_insert-callout.js",
+            "settings": {}
+          }
+        ]
+      }
+    }
+  ],
+  "inputPrompt": "multi-line",
+  "devMode": false,
+  "templateFolderPath": "_cabinet",
+  "announceUpdates": true,
+  "version": "2.1.0",
+  "disableOnlineFeatures": true,
+  "enableRibbonIcon": false,
+  "showCaptureNotification": true,
+  "ai": {
+    "defaultModel": "Ask me",
+    "defaultSystemPrompt": "As an AI assistant within Obsidian, your primary goal is to help users manage their ideas and knowledge more effectively. Format your responses using Markdown syntax. Please use the [[Obsidian]] link format. You can write aliases for the links by writing [[Obsidian|the alias after the pipe symbol]]. To use mathematical notation, use LaTeX syntax. LaTeX syntax for larger equations should be on separate lines, surrounded with double dollar signs ($$). You can also inline math expressions by wrapping it in $ symbols. For example, use $$w_{ij}^{\text{new}}:=w_{ij}^{\text{current}}+etacdotdelta_jcdot x_{ij}$$ on a separate line, but you can write \"($eta$ = learning rate, $delta_j$ = error term, $x_{ij}$ = input)\" inline.",
+    "promptTemplatesFolderPath": "",
+    "showAssistant": true,
+    "providers": [
+      {
+        "name": "OpenAI",
+        "endpoint": "https://api.openai.com/v1",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "text-davinci-003",
+            "maxTokens": 4096
+          },
+          {
+            "name": "gpt-3.5-turbo",
+            "maxTokens": 4096
+          },
+          {
+            "name": "gpt-3.5-turbo-16k",
+            "maxTokens": 16384
+          },
+          {
+            "name": "gpt-3.5-turbo-1106",
+            "maxTokens": 16385
+          },
+          {
+            "name": "gpt-4",
+            "maxTokens": 8192
+          },
+          {
+            "name": "gpt-4-32k",
+            "maxTokens": 32768
+          },
+          {
+            "name": "gpt-4-1106-preview",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4-turbo",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o-mini",
+            "maxTokens": 128000
+          }
+        ],
+        "autoSyncModels": false
+      },
+      {
+        "name": "Gemini",
+        "endpoint": "https://generativelanguage.googleapis.com",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gemini-1.5-pro",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash-8b",
+            "maxTokens": 1000000
+          }
+        ],
+        "autoSyncModels": false
+      }
+    ]
+  },
+  "migrations": {
+    "migrateToMacroIDFromEmbeddedMacro": true,
+    "useQuickAddTemplateFolder": true,
+    "incrementFileNameSettingMoveToDefaultBehavior": true,
+    "mutualExclusionInsertAfterAndWriteToBottomOfFile": true,
+    "setVersionAfterUpdateModalRelease": true,
+    "addDefaultAIProviders": true,
+    "removeMacroIndirection": true,
+    "migrateFileOpeningSettings": true
+  }
+}

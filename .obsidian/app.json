@@ -1,0 +1,23 @@
+{
+  "attachmentFolderPath": "_metadata/asset",
+  "newFileLocation": "current",
+  "livePreview": false,
+  "alwaysUpdateLinks": true,
+  "promptDelete": false,
+  "strictLineBreaks": false,
+  "newLinkFormat": "absolute",
+  "defaultViewMode": "preview",
+  "readableLineLength": false,
+  "showLineNumber": true,
+  "showUnsupportedFiles": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "useMarkdownLinks": true,
+  "smartIndentList": false,
+  "showInlineTitle": false
+}

@@ -1,0 +1,55 @@
+
+/* -------------------------------------------------- */
+/* admoniton의 모든 콜아웃 동작 정의 */
+/* -------------------------------------------------- */
+
+/* Admonition 오른쪽 아이콘 접었을 때 */
+.admonition.is-collapsed .callout-fold .svg-icon {
+  transform: rotate(-90deg);
+}
+
+.admonition.callout.admonition-foldable {
+  margin-top: 0em;
+  margin-bottom: 0em;	
+  padding-top:0.3em;
+  padding-bottom:0.3em;
+}
+
+
+/* -------------------------------------------------- */
+/* admonition <details>의 접기/펴기 동작 정의 */
+/* -------------------------------------------------- */
+
+/* Admonition 오른쪽 아이콘 숨기기 */
+.admonition-foldable .callout-fold .svg-icon {
+  display: none !important; /* 기본 아이콘 숨기기 */
+}
+
+/* 왼쪽 아이콘 숨기기 */
+.callout-title.admonition-title div.callout-icon.admonition-title-icon svg{
+    display:none;
+}
+
+/* 2. callout-icon 위치에 텍스트 삽입 */
+.callout.admonition.admonition-foldable .callout-icon.admonition-title-icon::before {
+    content: "▼"; /* 펼쳐진 상태 기본 텍스트 */
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
+    display: inline-block;
+    width: 18px; /* img 공간과 비슷하게 */
+    text-align: center;
+
+}
+
+/* 3. 접힌 상태 텍스트 */
+.callout.admonition.is-collapsed.admonition-foldable .callout-icon.admonition-title-icon::before {
+    content: "▶";
+
+}
+
+/* 4. 삼각형 세로 중앙정렬 */
+.callout-title.admonition-title{
+    display:flex;
+    align-items:center;
+}

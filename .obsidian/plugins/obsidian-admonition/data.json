@@ -1,0 +1,38 @@
+{
+  "userAdmonitions": {
+    "foldable": {
+      "type": "foldable",
+      "color": "#7d7d7d",
+      "icon": {
+        "name": "angle-right",
+        "type": "font-awesome"
+      },
+      "command": false,
+      "title": "Foldable",
+      "injectColor": true,
+      "noTitle": false,
+      "copy": true
+    }
+  },
+  "syntaxHighlight": true,
+  "copyButton": true,
+  "version": "10.3.2",
+  "autoCollapse": true,
+  "defaultCollapseType": "open",
+  "injectColor": true,
+  "parseTitles": true,
+  "dropShadow": true,
+  "hideEmpty": false,
+  "open": {
+    "admonitions": true,
+    "icons": true,
+    "other": true,
+    "advanced": true
+  },
+  "icons": [],
+  "useFontAwesome": true,
+  "rpgDownloadedOnce": false,
+  "msDocConverted": false,
+  "useSnippet": false,
+  "snippetPath": "custom-admonitions.a3346f"
+}

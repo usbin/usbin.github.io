@@ -1,0 +1,9 @@
+{
+  "jsFiles": "",
+  "jsFolder": "__metadata__/js",
+  "startupScriptNames": [
+    "OzcalendarKoreanDateFix"
+  ],
+  "registeredInvocableScriptNames": [],
+  "rerunStartupScriptsOnFileChange": false
+}

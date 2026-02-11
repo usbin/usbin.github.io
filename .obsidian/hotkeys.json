@@ -1,0 +1,123 @@
+{
+  "templater-obsidian:metadata/_Templates/개행.md": [
+    {
+      "modifiers": [
+        "Shift"
+      ],
+      "key": "Enter"
+    }
+  ],
+  "templater-obsidian:metadata/_Templates/태그 메타데이터.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "T"
+    }
+  ],
+  "markdown:toggle-preview": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "1"
+    }
+  ],
+  "app:open-help": [],
+  "editor:toggle-source": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "`"
+    }
+  ],
+  "templater-obsidian:_cabinet/template/개행.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "Enter"
+    }
+  ],
+  "templater-obsidian:_cabinet/template/태그 메타데이터.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "T"
+    }
+  ],
+  "editor:follow-link": [],
+  "quickadd:choice:8dd812df-6cef-4139-a1ca-c6ce52c8e43f": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "."
+    }
+  ],
+  "quickadd:choice:ee9b5da8-3c58-4eed-8676-59c73012713d": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "."
+    }
+  ],
+  "copy-as-html:copy-as-html-command": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "C"
+    }
+  ],
+  "templater-obsidian:_cabinet/template/컬럼 만들기 by HTML.md": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "C"
+    }
+  ],
+  "obsidian-git:push": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod",
+        "Shift"
+      ],
+      "key": "S"
+    }
+  ],
+  "templater-obsidian:create-_cabinet/template/컬럼 만들기 by Multi Column Markdown.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "C"
+    }
+  ],
+  "templater-obsidian:__metadata__/template/개행.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "Enter"
+    }
+  ],
+  "templater-obsidian:__metadata__/template/컬럼 만들기 by Multi Column Markdown.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "C"
+    }
+  ]
+}

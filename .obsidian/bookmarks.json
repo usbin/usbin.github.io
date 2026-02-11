@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "type": "group",
+      "ctime": 1757310986159,
+      "items": [
+        {
+          "type": "folder",
+          "ctime": 1757579364753,
+          "path": "업무/@Inbox",
+          "title": "업무Inbox"
+        },
+        {
+          "type": "file",
+          "ctime": 1757310997726,
+          "path": "업무/@업무.Index.md",
+          "title": "@업무.index"
+        }
+      ],
+      "title": "업무"
+    },
+    {
+      "type": "group",
+      "ctime": 1757311012362,
+      "items": [
+        {
+          "type": "folder",
+          "ctime": 1757579387805,
+          "path": "홈/@Inbox",
+          "title": "홈Inbox"
+        },
+        {
+          "type": "file",
+          "ctime": 1757311182753,
+          "path": "홈/Area/게임/@대항.index.md",
+          "title": "@대항.index"
+        }
+      ],
+      "title": "생활"
+    },
+    {
+      "type": "folder",
+      "ctime": 1758170808760,
+      "path": "홈/Resource/옵시디언 문법"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "cssTheme": "GitHub Theme",
+  "enabledCssSnippets": [
+    "dataview-list",
+    "MCL Multi Column",
+    "collapse-list",
+    "custom-admonitions.a3346f",
+    "codeblock-linebreak",
+    "admonition-callout-customize"
+  ],
+  "accentColor": "",
+  "theme": "obsidian"
+}
