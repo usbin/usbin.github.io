@@ -5,6 +5,10 @@
       "path": "_posts/2026-02-11-테스트.md"
     },
     {
+      "basename": "categories",
+      "path": "_tabs/categories.md"
+    },
+    {
       "basename": "취직 시 어필할 자료",
       "path": "홈/Project/LogialbaErp/취직 시 어필할 자료.md"
     },
