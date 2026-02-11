@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_tabs/tags.md",
+                "file": "_posts/2026-02-11-plan.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "tags"
+              "title": "2026-02-11-plan"
             }
           }
         ]
@@ -219,10 +219,12 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "_posts/2025-07-03-baekjoon_findfraction.md",
+    "_tabs/tags.md",
     "_tabs/categories.md",
     "_tabs/archives.md",
     "_tabs/about.md",
-    "_posts/2026-02-11-테스트.md",
+    "_posts/2026-02-11-plan.md",
     "__metadata__/template/태그 메타데이터.md",
     "__metadata__/template/컬럼 만들기 by Multi Column Markdown.md",
     "__metadata__/template/컬럼 만들기 by HTML.md",
@@ -261,8 +263,6 @@
     "홈/Project/마이그레이션/0.계획.md",
     "홈/Project/LogialbaErp/cron으로 db 백업.md",
     "홈/Project/LogialbaErp/취직 시 어필할 자료.md",
-    "홈/Project/LogialbaErp/역기획서.md",
-    "홈/Project/LogialbaErp/0.entry.md",
     "업무/z.Archive/스카이워크/생활/@연차 기록.base",
     "홈/Resource/포맷 후 정보들",
     "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",

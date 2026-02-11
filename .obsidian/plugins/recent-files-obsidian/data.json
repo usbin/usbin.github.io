@@ -1,6 +1,14 @@
 {
   "recentFiles": [
     {
+      "basename": "2026-02-11-plan",
+      "path": "_posts/2026-02-11-plan.md"
+    },
+    {
+      "basename": "2025-07-03-baekjoon_findfraction",
+      "path": "_posts/2025-07-03-baekjoon_findfraction.md"
+    },
+    {
       "basename": "tags",
       "path": "_tabs/tags.md"
     },
@@ -15,10 +23,6 @@
     {
       "basename": "about",
       "path": "_tabs/about.md"
-    },
-    {
-      "basename": "2026-02-11-테스트",
-      "path": "_posts/2026-02-11-테스트.md"
     },
     {
       "basename": "취직 시 어필할 자료",
@@ -195,10 +199,6 @@
     {
       "basename": "패스",
       "path": "홈/Area/게임/신월동행/패스.md"
-    },
-    {
-      "basename": "월정액",
-      "path": "홈/Area/게임/신월동행/월정액.md"
     }
   ],
   "omittedPaths": [],
