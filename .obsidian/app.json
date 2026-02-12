@@ -1,11 +1,11 @@
 {
-  "attachmentFolderPath": "_metadata/asset",
+  "attachmentFolderPath": "./attatchments",
   "newFileLocation": "current",
   "livePreview": false,
   "alwaysUpdateLinks": true,
   "promptDelete": false,
   "strictLineBreaks": false,
-  "newLinkFormat": "absolute",
+  "newLinkFormat": "relative",
   "defaultViewMode": "preview",
   "readableLineLength": false,
   "showLineNumber": true,
