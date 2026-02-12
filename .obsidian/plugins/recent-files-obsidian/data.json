@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2026-02-12-rhcsa_cs01",
+      "path": "_posts/2026-02-12-rhcsa_cs01.md"
+    },
+    {
       "basename": "2026-02-11-plan",
       "path": "_posts/2026-02-11-plan.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "시즌 영입 배송 패키지",
       "path": "홈/Area/게임/신월동행/시즌 영입 배송 패키지.md"
-    },
-    {
-      "basename": "패스",
-      "path": "홈/Area/게임/신월동행/패스.md"
     }
   ],
   "omittedPaths": [],

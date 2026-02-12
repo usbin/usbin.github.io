@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-11-plan.md",
+                "file": "_posts/2026-02-12-rhcsa_cs01.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-11-plan"
+              "title": "2026-02-12-rhcsa_cs01"
             }
           }
         ]
@@ -194,7 +194,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -219,12 +219,12 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "_posts/2026-02-11-plan.md",
     "_posts/2025-07-03-baekjoon_findfraction.md",
     "_tabs/tags.md",
     "_tabs/categories.md",
     "_tabs/archives.md",
     "_tabs/about.md",
-    "_posts/2026-02-11-plan.md",
     "__metadata__/template/태그 메타데이터.md",
     "__metadata__/template/컬럼 만들기 by Multi Column Markdown.md",
     "__metadata__/template/컬럼 만들기 by HTML.md",
