@@ -288,6 +288,13 @@
       "replace": "![image]($1)",
       "flags": "gm",
       "enabled": true
+    },
+    {
+      "label": "깃허브배포시강제절대경로방지",
+      "find": "\\!\\[(.*)\\]\\(\\/\\.\\/(.*)\\)",
+      "replace": "![$1](./$2)",
+      "flags": "gm",
+      "enabled": true
     }
   ],
   "commonStyles": {
