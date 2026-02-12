@@ -1,5 +1,5 @@
 {
-  "attachmentFolderPath": "./attachments",
+  "attachmentFolderPath": "assets/img",
   "newFileLocation": "current",
   "livePreview": false,
   "alwaysUpdateLinks": true,
@@ -19,5 +19,6 @@
   },
   "useMarkdownLinks": true,
   "smartIndentList": false,
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "newFileFolderPath": ""
 }

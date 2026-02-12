@@ -1,8 +1,28 @@
 {
   "recentFiles": [
     {
+      "basename": "2025-06-26-programmers_binaryconvert",
+      "path": "_posts/2025-06-26-programmers_binaryconvert.md"
+    },
+    {
+      "basename": "2024-07-07-22-24-10",
+      "path": "assets/img/2024-07-07-programmers_most-frequent-value/2024-07-07-22-24-10.png"
+    },
+    {
       "basename": "2026-02-12-rhcsa_cs01",
       "path": "_posts/2026-02-12-rhcsa_cs01.md"
+    },
+    {
+      "basename": "Pasted image 20260212201009",
+      "path": "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201009.png"
+    },
+    {
+      "basename": "2025-07-03-21-30-27",
+      "path": "assets/img/2025-07-03-baekjoon_find/2025-07-03-21-30-27.png"
+    },
+    {
+      "basename": "icon1024x1024",
+      "path": "assets/img/icon1024x1024.png"
     },
     {
       "basename": "2025-07-03-baekjoon_findfraction",
@@ -179,26 +199,6 @@
     {
       "basename": "컬럼 만들기 by Columns",
       "path": "__metadata__/template/컬럼 만들기 by Columns.md"
-    },
-    {
-      "basename": "컬럼 만들기 by Multi Column Markdown",
-      "path": "__metadata__/template/컬럼 만들기 by Multi Column Markdown.md"
-    },
-    {
-      "basename": "컬럼 만들기 by HTML",
-      "path": "__metadata__/template/컬럼 만들기 by HTML.md"
-    },
-    {
-      "basename": "시즌 초특가 패키지",
-      "path": "홈/Area/게임/신월동행/시즌 초특가 패키지.md"
-    },
-    {
-      "basename": "시즌 증원 패키지",
-      "path": "홈/Area/게임/신월동행/시즌 증원 패키지.md"
-    },
-    {
-      "basename": "시즌 영입 배송 패키지",
-      "path": "홈/Area/게임/신월동행/시즌 영입 배송 패키지.md"
     }
   ],
   "omittedPaths": [],

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-12-rhcsa_cs01.md",
+                "file": "_posts/2025-06-26-programmers_binaryconvert.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-12-rhcsa_cs01"
+              "title": "2025-06-26-programmers_binaryconvert"
             }
           }
         ]
@@ -219,10 +219,15 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "assets/img/2024-07-07-programmers_most-frequent-value/2024-07-07-22-24-10.png",
+    "_posts/2026-02-12-rhcsa_cs01.md",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201009.png",
+    "assets/img/2026-02-12-rhcsa_cs01",
+    "assets/img/2025-07-03-baekjoon_find/2025-07-03-21-30-27.png",
+    "assets/img/icon1024x1024.png",
     "_posts/attachments",
     "_posts/2025-07-03-baekjoon_findfraction.md",
     "_posts/2026-02-11-plan.md",
-    "_posts/2026-02-12-rhcsa_cs01.md",
     "_tabs/tags.md",
     "_tabs/categories.md",
     "_tabs/archives.md",
@@ -249,9 +254,6 @@
     "__metadata__/asset/프랍타입의추가08.png",
     "__metadata__/asset/프랍타입의추가07.png",
     "__metadata__/asset/프랍타입의추가06.png",
-    "__metadata__/asset/프랍타입의추가05.png",
-    "__metadata__/asset/프랍타입의추가04.png",
-    "__metadata__/asset/프랍타입의추가03.png",
     "__metadata__/asset/TableImporter.zip",
     "__metadata__/asset/Pasted.md",
     "__metadata__/asset/client_table.xlsx",
@@ -263,8 +265,6 @@
     "홈/@홈.Index.md",
     "홈/@Inbox/리눅스 탐험기.md",
     "홈/Project/마이그레이션/0.계획.md",
-    "업무/z.Archive/스카이워크/생활/@연차 기록.base",
-    "홈/Resource/포맷 후 정보들",
     "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
     "업무/z.Archive/스카이워크/Project/__애매한종료/251103_PF빌드 최적화 R&D/mindmap.canvas",
     "홈/Project/마이그레이션/무제.canvas"
