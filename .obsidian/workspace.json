@@ -11,32 +11,15 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "_posts/2026-02-12-rhcsa_cs01.md",
-                "mode": "preview",
-                "source": true
+                "file": "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195039229.png"
               },
-              "icon": "lucide-file",
-              "title": "2026-02-12-rhcsa_cs01"
-            }
-          },
-          {
-            "id": "011dbec1f836cd15",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/2026-02-13-rhcsa_cs02.md",
-                "mode": "source",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "2026-02-13-rhcsa_cs02"
+              "icon": "lucide-image",
+              "title": "IMG-20260213195039229"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -232,27 +215,28 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "011dbec1f836cd15",
+  "active": "cf96c8f7ee068acb",
   "lastOpenFiles": [
-    "_posts/2026-02-12-rhcsa_cs01.md",
-    "_posts/2026-02-13-rhcsa_cs02.md",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195039229.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201523.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192306.png",
+    "assets/img/2026-02-12-rhcsa_cs01/스크린샷 2026-02-05 110852.png",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195019160.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192133.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192151.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201449.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201009.png",
+    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201024.png",
+    "_posts/2026-02-13-rhcsa_cs02.md",
+    "Pasted image 20260213193943.png",
+    "_posts/2026-02-12-rhcsa_cs01.md",
     "attachments/assets/img/2026-02-12-rhcsa_cs01",
     "attachments/assets/img",
     "attachments/assets",
     "attachments",
-    "attachments/assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195010674.png",
-    "assets/img/2026-02-12-rhcsa_cs01/assets/img/2026-02-12-rhcsa_cs01/IMG-20260213194937716.png",
     "assets/img/2026-02-12-rhcsa_cs01/assets/img/2026-02-12-rhcsa_cs01",
     "assets/img/2026-02-12-rhcsa_cs01/assets/img",
     "assets/img/2026-02-12-rhcsa_cs01/assets",
-    "assets/img/2026-02-12-rhcsa_cs01/assets/img/2026-02-12-rhcsa_cs01/IMG-20260213194932528.png",
-    "assets/img/2026-02-12-rhcsa_cs01/스크린샷 2026-02-05 110852.png",
-    "Pasted image 20260213194550.png",
-    "Pasted image 20260213194548.png",
-    "Pasted image 20260213194507.png",
-    "Pasted image 20260213194416.png",
     "_posts/2026-02-11-plan.md",
     "assets/img/2026-02-12-rhcsa_cs01",
     "assets/img/tmp",
@@ -279,7 +263,6 @@
     "홈/@Inbox/퇴직금을 향한 여정.md",
     "홈/@Inbox/커리어계획서.md",
     "홈/@홈.Index.md",
-    "홈/@Inbox/리눅스 탐험기.md",
     "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
     "업무/z.Archive/스카이워크/Project/__애매한종료/251103_PF빌드 최적화 R&D/mindmap.canvas",
     "홈/Project/마이그레이션/무제.canvas"
