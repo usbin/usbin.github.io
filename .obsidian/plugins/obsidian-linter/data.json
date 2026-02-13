@@ -290,9 +290,9 @@
       "enabled": true
     },
     {
-      "label": "깃허브배포시강제절대경로방지",
-      "find": "\\!\\[(.*)\\]\\(\\/\\.\\/(.*)\\)",
-      "replace": "![$1](./$2)",
+      "label": "이미지 assets/img/{폴더명}에 자동 배치",
+      "find": "",
+      "replace": "",
       "flags": "gm",
       "enabled": true
     }
