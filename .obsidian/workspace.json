@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-12-rhcsa_cs01.md",
+                "file": "_posts/2026-02-13-rhcsa_cs02.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-12-rhcsa_cs01"
+              "title": "2026-02-13-rhcsa_cs02"
             }
           }
         ],
@@ -234,8 +234,8 @@
   },
   "active": "011dbec1f836cd15",
   "lastOpenFiles": [
-    "_posts/2026-02-13-rhcsa_cs02.md",
     "_posts/2026-02-12-rhcsa_cs01.md",
+    "_posts/2026-02-13-rhcsa_cs02.md",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195039229.png",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195019160.png",
     "attachments/assets/img/2026-02-12-rhcsa_cs01",
