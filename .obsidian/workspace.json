@@ -11,14 +11,10 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/2026-02-12-rhcsa_cs01.md",
-                "mode": "source",
-                "source": true
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "2026-02-12-rhcsa_cs01"
+              "title": "New tab"
             }
           }
         ]
@@ -219,9 +215,9 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "_posts/2026-02-12-rhcsa_cs01.md",
     "_posts/2025-06-26-programmers_binaryconvert.md",
     "assets/img/2024-07-07-programmers_most-frequent-value/2024-07-07-22-24-10.png",
-    "_posts/2026-02-12-rhcsa_cs01.md",
     "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201009.png",
     "assets/img/2026-02-12-rhcsa_cs01",
     "assets/img/2025-07-03-baekjoon_find/2025-07-03-21-30-27.png",
