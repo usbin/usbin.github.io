@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "5324373015726ba8",
+    "id": "59755f6be55188d1",
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "27995f8bb05f8d3e",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "400654807bda084f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "홈/@Inbox/퇴직금을 향한 여정.md",
+                "file": "_posts/2026-02-12-rhcsa_cs01.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "퇴직금을 향한 여정"
+              "title": "2026-02-12-rhcsa_cs01"
             }
           }
         ]
@@ -27,11 +27,11 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "9bde272a86661910",
+    "id": "3a3ba8aaee5b544a",
     "type": "mobile-drawer",
     "children": [
       {
-        "id": "c436d2d56e1d567d",
+        "id": "1b3fce80348952e1",
         "type": "leaf",
         "state": {
           "type": "file-explorer",
@@ -44,7 +44,7 @@
         }
       },
       {
-        "id": "dc78411669eabb8c",
+        "id": "2dab0cbb04ec7337",
         "type": "leaf",
         "state": {
           "type": "search",
@@ -61,7 +61,7 @@
         }
       },
       {
-        "id": "dc48c7307928ce07",
+        "id": "a8ac1cbc5b7c9d2f",
         "type": "leaf",
         "state": {
           "type": "tag",
@@ -76,7 +76,7 @@
         }
       },
       {
-        "id": "c7b54c0466137c65",
+        "id": "6c311b028f45a67e",
         "type": "leaf",
         "state": {
           "type": "all-properties",
@@ -90,7 +90,7 @@
         }
       },
       {
-        "id": "fde3b2e1c568d151",
+        "id": "67e7afe4d0463d7d",
         "type": "leaf",
         "state": {
           "type": "bookmarks",
@@ -98,30 +98,21 @@
           "icon": "lucide-bookmark",
           "title": "북마크"
         }
-      },
-      {
-        "id": "2f42b5db35764868",
-        "type": "leaf",
-        "state": {
-          "type": "file-tree-view",
-          "state": {},
-          "icon": "lucide-ghost",
-          "title": "file-tree-view"
-        }
       }
     ],
     "currentTab": 0
   },
   "right": {
-    "id": "ea271160fe4ca911",
+    "id": "1e64ea1f82c258b3",
     "type": "mobile-drawer",
     "children": [
       {
-        "id": "eb1c380fc530c75c",
+        "id": "647046e31fc87040",
         "type": "leaf",
         "state": {
           "type": "backlink",
           "state": {
+            "file": "_posts/2026-02-12-rhcsa_cs01.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -135,11 +126,12 @@
         }
       },
       {
-        "id": "c7384e84800bd989",
+        "id": "76fcaade977e50dd",
         "type": "leaf",
         "state": {
           "type": "outgoing-link",
           "state": {
+            "file": "_posts/2026-02-12-rhcsa_cs01.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           },
@@ -148,11 +140,12 @@
         }
       },
       {
-        "id": "a9eba892533badb9",
+        "id": "94dbde37c68d5ca2",
         "type": "leaf",
         "state": {
           "type": "outline",
           "state": {
+            "file": "_posts/2026-02-12-rhcsa_cs01.md",
             "followCursor": false,
             "showSearch": false,
             "searchQuery": ""
@@ -160,90 +153,68 @@
           "icon": "lucide-list",
           "title": "개요"
         }
-      },
-      {
-        "id": "983432e9f7d7f713",
-        "type": "leaf",
-        "state": {
-          "type": "oz-calendar",
-          "state": {},
-          "icon": "OZCAL_ICON",
-          "title": "OZ Calendar"
-        }
       }
     ],
-    "currentTab": 3
+    "currentTab": 0
   },
   "left-ribbon": {
     "hiddenItems": {
-      "excel:Create Excel File": false,
-      "obsidian-excalidraw-plugin:New drawing": false,
       "switcher:빠른 전환기 열기": false,
       "graph:그래프 뷰 열기": false,
       "canvas:새 캔버스 만들기": false,
       "daily-notes:오늘의 일일 노트 열기": false,
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
-      "bases:새 베이스 생성하기": false,
-      "templater-obsidian:Templater": false,
-      "homepage:Open homepage": false,
-      "obsidian42-brat:BRAT": false
+      "bases:새 베이스 생성하기": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "400654807bda084f",
   "lastOpenFiles": [
-    "홈/@홈.Index.md",
-    "홈/@Inbox/퇴직금을 향한 여정.md",
-    "홈/Project/LogialbaErp/취직 시 어필할 자료.md",
-    "홈/@Inbox/리눅스2급 2차 수험번호.md",
-    "홈/Project/LogialbaErp/hmerp docker 배포 명령어.md",
-    "홈/Project/LogialbaErp/cron으로 db 백업.md",
-    "홈/@Inbox/리눅스 탐험기.md",
-    "홈/Area/@모모통장.index.md",
-    "업무/@업무.Index.md",
-    "홈/Resource/포맷 후 정보들/이슈01. 터미널의 git bash 한글이 깨질 때.md",
-    "홈/Resource/포맷 후 정보들",
-    "홈/@Inbox/정처기 암기용.md",
-    "홈/Resource/개발/ai/claude_code_guide.md",
-    "홈/z.Archive/케어웍스/Betteruth 플랫폼 개발 정리.md",
-    "홈/z.Archive/케어웍스/인수인계.md",
-    "홈/@Inbox/커리어계획서.md",
-    "홈/@Inbox/스팀 하드웨어 설문조사.md",
-    "__metadata__/asset/Pasted image 20260109141537.png",
-    "__metadata__/asset/Pasted image 20260109141546.png",
-    "홈/Area/게임/@명조.index.md",
-    "홈/Area/게임/명조/깡돌 0.12.md",
-    "홈/Area/게임/명조/첫구매 깡돌 0.12.md",
-    "홈/Area/게임/명조/깡돌 0.59.md",
-    "홈/Area/게임/명조/첫구매 깡돌 0.59.md",
-    "홈/Area/게임/명조/첫구매 깡돌 1.9.md",
-    "홈/Area/게임/명조/깡돌 1.9.md",
-    "홈/Area/게임/명조/깡돌 3.7.md",
-    "홈/Area/게임/명조/첫구매 깡돌 3.7.md",
-    "홈/Area/게임/명조/첫구매 깡돌 6.5.md",
-    "홈/Area/게임/명조",
-    "홈/Area/게임/무기미도",
-    "홈/Resource/개발/Unity/이슈/젠킨스 이슈들",
-    "홈/Resource/개발/Unity/이슈/settingTemplate.gradle이 GeneratedLocalRepo를 인식하지 않는 문제",
-    "홈/Resource/개발/Unity/이슈",
-    "홈/Resource/개발/라이브서비스관련",
-    "홈/Resource/개발/ai",
-    "홈/Resource/개발/이슈 히스토리",
-    "홈/Resource/개발/프로젝트 관리 도구",
-    "업무/z.Archive/스카이워크/Project/__애매한종료/251103_PF빌드 최적화 R&D/mindmap.canvas",
-    "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
-    "__metadata__/asset/Pasted image 20251203103046.png",
-    "__metadata__/asset/Pasted image 20251203143831.png",
-    "__metadata__/asset/Pasted image 20251205153421.png",
-    "__metadata__/asset/Pasted image 20251211102519.png",
-    "__metadata__/asset/Pasted image 20251205153522.png",
-    "__metadata__/asset/Pasted image 20251205153401.png",
-    "__metadata__/asset/Pasted image 20251205153435.png",
-    "__metadata__/asset/Pasted image 20251212120723.png",
-    "업무/z.Archive/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
-    "업무/Project/__애매한종료/251103_PF빌드 최적화 R&D/mindmap.canvas",
-    "홈/Project/마이그레이션/무제.canvas",
-    "업무/Project/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
-    "업무/Project/251103_PF빌드 최적화 R&D/mindmap.canvas"
+    "assets/img/2024-07-07-programmers_middle_value/2024-07-07-21-27-10.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-09-15.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-30-44.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-33-17.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-32-51.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-22-26.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-29-04.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-21.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-11-35.png",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-14-04.png",
+    "assets/img/favicons/browserconfig.xml",
+    "assets/img/favicons/manifest.json",
+    "assets/img/favicons/favicon.ico",
+    "assets/img/2024-07-07-programmers_middle_value",
+    "assets/img/2025-01-27-unity_urp-02-camera-stacking",
+    "assets/img/2024-08-20-programmers_balls01",
+    "assets/img/2024-09-24-programmers_more-spicy",
+    "assets/img/2025-01-28-unity_urp-05-lens-flares",
+    "assets/img/2024-08-06-programmers_ant-army",
+    "assets/img/2024-08-20-programmers_morse-code",
+    "README.md",
+    "__metadata__/template/컬럼 만들기 by Columns.md",
+    "__metadata__/template/task.md",
+    "__metadata__/template/연차.md",
+    "__metadata__/template/update.md",
+    "__metadata__/template/index.md",
+    "__metadata__/template/태그 메타데이터.md",
+    "__metadata__/template/개행.md",
+    "__metadata__/template/zero-width-space.md",
+    "__metadata__/template/project.md",
+    "__metadata__/template/컬럼 만들기 by HTML.md",
+    "__metadata__/template/컬럼 만들기 by Multi Column Markdown.md",
+    "__metadata__/template/모모통장 내역.md",
+    "__metadata__/asset/Pasted.md",
+    "_posts/2026-02-11-plan.md",
+    "_posts/2026-02-13-rhcsa_cs02.md",
+    "_posts/2026-02-12-rhcsa_cs01.md",
+    "_posts/2024-07-07-programmers_most-frequent-value.md",
+    "_posts/2025-01-28-unity_urp-08-renderer02.md",
+    "_posts/2024-08-27-cs_data-structure.md",
+    "_posts/2025-01-28-unity_urp-05-lens-flares.md",
+    "_posts/2025-01-28-unity_urp-03-renderer.md",
+    "_posts/2025-01-28-unity_urp-06-decals.md",
+    "_posts/2024-08-27-programmers_composite-numbers.md",
+    "_posts/2025-06-26-programmers_binaryconvert.md"
   ]
 }
