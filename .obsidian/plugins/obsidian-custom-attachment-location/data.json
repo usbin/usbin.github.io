@@ -1,6 +1,6 @@
 {
   "attachmentFolderPath": "assets/img/${noteFileName}",
-  "attachmentRenameMode": "Only pasted images",
+  "attachmentRenameMode": "All",
   "collectAttachmentUsedByMultipleNotesMode": "Skip",
   "collectedAttachmentFileName": "",
   "convertImagesToJpegMode": "None",
@@ -12,7 +12,9 @@
   "excludePaths": [],
   "excludePathsFromAttachmentCollecting": [],
   "generatedAttachmentFileName": "file-${date:{momentJsFormat:'YYYYMMDDHHmmssSSS'}}",
-  "includePaths": [],
+  "includePaths": [
+    "/_posts/"
+  ],
   "jpegQuality": 0.8,
   "markdownUrlFormat": "",
   "moveAttachmentToProperFolderUsedByMultipleNotesMode": "CopyAll",
