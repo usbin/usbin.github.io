@@ -5,16 +5,36 @@
       "path": "_posts/2026-02-12-rhcsa_cs01.md"
     },
     {
+      "basename": "Pasted image 20260213192306",
+      "path": "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192306.png"
+    },
+    {
+      "basename": "2026-02-11-plan",
+      "path": "_posts/2026-02-11-plan.md"
+    },
+    {
+      "basename": "Pasted image 20260212201009",
+      "path": "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201009.png"
+    },
+    {
+      "basename": "avatar",
+      "path": "assets/img/avatar.png"
+    },
+    {
+      "basename": "Pasted image 20260212201449",
+      "path": "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201449.png"
+    },
+    {
+      "basename": "Pasted image 20260212201024",
+      "path": "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201024.png"
+    },
+    {
       "basename": "2025-06-26-programmers_binaryconvert",
       "path": "_posts/2025-06-26-programmers_binaryconvert.md"
     },
     {
       "basename": "2024-07-07-22-24-10",
       "path": "assets/img/2024-07-07-programmers_most-frequent-value/2024-07-07-22-24-10.png"
-    },
-    {
-      "basename": "Pasted image 20260212201009",
-      "path": "assets/img/Pasted image 20260212201009.png"
     },
     {
       "basename": "2025-07-03-21-30-27",
@@ -27,10 +47,6 @@
     {
       "basename": "2025-07-03-baekjoon_findfraction",
       "path": "_posts/2025-07-03-baekjoon_findfraction.md"
-    },
-    {
-      "basename": "2026-02-11-plan",
-      "path": "_posts/2026-02-11-plan.md"
     },
     {
       "basename": "tags",
@@ -171,34 +187,6 @@
     {
       "basename": "@대항.index",
       "path": "홈/Area/게임/@대항.index.md"
-    },
-    {
-      "basename": "돈스타브",
-      "path": "홈/Area/게임/돈스타브.md"
-    },
-    {
-      "basename": "GDD by Claude",
-      "path": "홈/Project/TC/GDD by Claude.md"
-    },
-    {
-      "basename": "기획",
-      "path": "홈/Project/TC/기획.md"
-    },
-    {
-      "basename": "@신월동행.index",
-      "path": "홈/Area/게임/@신월동행.index.md"
-    },
-    {
-      "basename": "claude code 설치하기",
-      "path": "홈/Inbox/claude code 설치하기.md"
-    },
-    {
-      "basename": "Excel 2025-09-11 17.23.36.sheet",
-      "path": "홈/Inbox/Excel 2025-09-11 17.23.36.sheet.md"
-    },
-    {
-      "basename": "컬럼 만들기 by Columns",
-      "path": "__metadata__/template/컬럼 만들기 by Columns.md"
     }
   ],
   "omittedPaths": [],

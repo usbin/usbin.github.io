@@ -1,5 +1,5 @@
 {
-  "attachmentFolderPath": "assets/img",
+  "attachmentFolderPath": "assets/img/2026-02-12-rhcsa_cs01",
   "newFileLocation": "current",
   "livePreview": false,
   "alwaysUpdateLinks": true,
@@ -20,5 +20,6 @@
   "useMarkdownLinks": true,
   "smartIndentList": false,
   "showInlineTitle": false,
-  "newFileFolderPath": ""
+  "newFileFolderPath": "",
+  "trashOption": "local"
 }

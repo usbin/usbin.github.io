@@ -5,7 +5,6 @@
   "obsidian-icon-folder",
   "oz-calendar",
   "homepage",
-  "obsidian-paste-to-current-indentation",
   "customjs",
   "quickadd",
   "obsidian-admonition",
@@ -21,5 +20,6 @@
   "obsidian-enhancing-mindmap",
   "obsidian-style-settings",
   "obsidian-linter",
-  "consistent-attachments-and-links"
+  "obsidian-custom-attachment-location",
+  "obsidian-paste-to-current-indentation"
 ]

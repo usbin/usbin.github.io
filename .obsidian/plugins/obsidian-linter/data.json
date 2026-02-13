@@ -288,13 +288,6 @@
       "replace": "![image]($1)",
       "flags": "gm",
       "enabled": true
-    },
-    {
-      "label": "이미지 assets/img/{폴더명}에 자동 배치",
-      "find": "",
-      "replace": "",
-      "flags": "gm",
-      "enabled": true
     }
   ],
   "commonStyles": {

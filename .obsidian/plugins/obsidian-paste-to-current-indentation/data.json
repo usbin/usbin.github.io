@@ -2,7 +2,7 @@
   "blockquotePrefix": "> ",
   "mode": "Markdown",
   "saveBase64EncodedFiles": false,
-  "saveFilesLocation": "assets/img/tmp",
+  "saveFilesLocation": "",
   "saveFilesOverrideLocations": [],
   "apiVersion": 5,
   "escapeCharactersInBlockquotes": false,
