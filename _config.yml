@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: WHIM # the main title
 
-tagline: "취업고난기" # it will display as the sub-title
+tagline: "IT | 리눅스, AWS, 네트워크 공부" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Development Blog.
