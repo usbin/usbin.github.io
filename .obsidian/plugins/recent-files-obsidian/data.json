@@ -9,12 +9,12 @@
       "path": "_posts/2026-02-13-rhcsa_cs02.md"
     },
     {
-      "basename": "post",
-      "path": "__metadata__/template/post.md"
-    },
-    {
       "basename": "2026-02-12-rhcsa_cs01",
       "path": "_posts/2026-02-12-rhcsa_cs01.md"
+    },
+    {
+      "basename": "post",
+      "path": "__metadata__/template/post.md"
     },
     {
       "basename": "IMG-20260213195039229",

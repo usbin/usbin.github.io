@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "홈/Resource/개발/ai/claude 셋팅하기.md",
+                "file": "_posts/2026-02-16-rhcsa_cs03.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of claude 셋팅하기"
+              "title": "Outline of 2026-02-16-rhcsa_cs03"
             }
           },
           {
@@ -194,7 +194,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -219,22 +219,21 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "_posts/2026-02-13-rhcsa_cs02.md",
+    "_posts/2026-02-12-rhcsa_cs01.md",
+    "_posts/2026-02-16-rhcsa_cs03.md",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195828499.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195446157.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195307404.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195141828.png",
     "assets/img/2026-02-16-rhcsa_cs03",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195014405.png",
-    "_posts/2026-02-13-rhcsa_cs02.md",
-    "_posts/2026-02-16-rhcsa_cs03.md",
     "__metadata__/template/post.md",
-    "_posts/2026-02-12-rhcsa_cs01.md",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195039229.png",
     "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192306.png",
     "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260212201523.png",
     "assets/img/2026-02-12-rhcsa_cs01/스크린샷 2026-02-05 110852.png",
     "assets/img/2026-02-12-rhcsa_cs01/IMG-20260213195019160.png",
-    "assets/img/2026-02-12-rhcsa_cs01/Pasted image 20260213192133.png",
     "attachments/assets/img/2026-02-12-rhcsa_cs01",
     "attachments/assets/img",
     "attachments/assets",
