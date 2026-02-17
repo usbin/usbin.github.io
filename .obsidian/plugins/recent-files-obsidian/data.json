@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2026-02-17-rhcsa_cs05",
+      "path": "_posts/2026-02-17-rhcsa_cs05.md"
+    },
+    {
       "basename": "2026-02-17-rhcsa_cs04",
       "path": "_posts/2026-02-17-rhcsa_cs04.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "0.entry",
       "path": "업무/z.Archive/스카이워크/지난 프로젝트/251114_aos 구글 로그인 문제/0.entry.md"
-    },
-    {
-      "basename": "무제",
-      "path": "홈/Project/마이그레이션/무제.canvas"
     }
   ],
   "omittedPaths": [],

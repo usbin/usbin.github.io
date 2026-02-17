@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-17-rhcsa_cs04.md",
+                "file": "_posts/2026-02-17-rhcsa_cs05.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-17-rhcsa_cs04"
+              "title": "2026-02-17-rhcsa_cs05"
             }
           }
         ]
@@ -219,8 +219,9 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "_posts/2026-02-16-rhcsa_cs03.md",
     "_posts/2026-02-17-rhcsa_cs04.md",
+    "_posts/2026-02-17-rhcsa_cs05.md",
+    "_posts/2026-02-16-rhcsa_cs03.md",
     "_posts/2026-02-12-rhcsa_cs01.md",
     "_posts/2026-02-13-rhcsa_cs02.md",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195828499.png",
@@ -264,7 +265,6 @@
     "__metadata__/template/project.md",
     "__metadata__/template/index.md",
     "__metadata__/asset/Pasted.md",
-    "홈/@Inbox/퇴직금을 향한 여정.md",
     "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/android 15 대응 작업.Canvas.canvas",
     "업무/z.Archive/스카이워크/Project/__애매한종료/251103_PF빌드 최적화 R&D/mindmap.canvas",
     "홈/Project/마이그레이션/무제.canvas"
