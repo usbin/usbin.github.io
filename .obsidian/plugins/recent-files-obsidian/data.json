@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2026-02-18-rhcsa_cs06",
+      "path": "_posts/2026-02-18-rhcsa_cs06.md"
+    },
+    {
       "basename": "2026-02-17-rhcsa_cs05",
       "path": "_posts/2026-02-17-rhcsa_cs05.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "issue02. google 로그인 버튼 이슈",
       "path": "업무/z.Archive/스카이워크/지난 프로젝트/251017_android 15 대응 작업/이슈/issue02. google 로그인 버튼 이슈.md"
-    },
-    {
-      "basename": "0.entry",
-      "path": "업무/z.Archive/스카이워크/지난 프로젝트/251114_aos 구글 로그인 문제/0.entry.md"
     }
   ],
   "omittedPaths": [],
