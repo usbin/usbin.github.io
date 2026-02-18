@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "f505297d217310dd",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "e40a03b822388e29",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-16-rhcsa_cs03.md",
+                "file": "_posts/2026-02-17-rhcsa_cs05.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-16-rhcsa_cs03"
+              "title": "2026-02-17-rhcsa_cs05"
             }
           }
         ]
@@ -183,8 +183,9 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "e40a03b822388e29",
   "lastOpenFiles": [
+    "_posts/2026-02-16-rhcsa_cs03.md",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195828499.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195141828.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195446157.png",
@@ -192,14 +193,12 @@
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195014405.png",
     "assets/img/2026-02-16-rhcsa_cs03",
     "__metadata__/template/post.md",
-    "_posts/2026-02-16-rhcsa_cs03.md",
     "_posts/2026-02-12-rhcsa_cs01.md",
     "assets/img/2024-07-07-programmers_middle_value/2024-07-07-21-27-10.png",
     "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-09-15.png",
     "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-30-44.png",
     "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-33-17.png",
     "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-04-52.png",
-    "assets/img/2025-01-27-unity_urp-02-camera-stacking/2025-01-27-21-32-51.png",
     "assets/img/favicons/browserconfig.xml",
     "assets/img/favicons/manifest.json",
     "assets/img/favicons/favicon.ico",
