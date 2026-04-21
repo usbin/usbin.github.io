@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f505297d217310dd",
+        "id": "39c967b0c47029aa",
         "type": "tabs",
         "children": [
           {
-            "id": "e40a03b822388e29",
+            "id": "bb65d8b479af84e1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-17-rhcsa_cs05.md",
+                "file": "_posts/2026-04-21-keepnaby.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026-02-17-rhcsa_cs05"
+              "title": "2026-04-21-keepnaby"
             }
           }
         ]
@@ -183,9 +183,13 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "e40a03b822388e29",
+  "active": "bb65d8b479af84e1",
   "lastOpenFiles": [
+    "_posts/2026-02-18-rhcsa_cs07.md",
+    "_posts/2026-04-21-keepnaby.md",
+    "_posts/2026-02-17-rhcsa_cs05.md",
     "_posts/2026-02-16-rhcsa_cs03.md",
+    "_posts/2026-02-17-rhcsa_cs04.md",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195828499.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195141828.png",
     "assets/img/2026-02-16-rhcsa_cs03/IMG-20260216195446157.png",
@@ -226,9 +230,6 @@
     "_posts/2026-02-13-rhcsa_cs02.md",
     "_posts/2024-07-07-programmers_most-frequent-value.md",
     "_posts/2025-01-28-unity_urp-08-renderer02.md",
-    "_posts/2024-08-27-cs_data-structure.md",
-    "_posts/2025-01-28-unity_urp-05-lens-flares.md",
-    "_posts/2025-01-28-unity_urp-03-renderer.md",
-    "_posts/2025-01-28-unity_urp-06-decals.md"
+    "_posts/2024-08-27-cs_data-structure.md"
   ]
 }

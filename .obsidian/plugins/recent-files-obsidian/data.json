@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2026-04-21-keepnaby",
+      "path": "_posts/2026-04-21-keepnaby.md"
+    },
+    {
       "basename": "2026-02-18-rhcsa_cs07",
       "path": "_posts/2026-02-18-rhcsa_cs07.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "3.OAuth 동의 화면",
       "path": "업무/z.Archive/스카이워크/Project/251125_HT 리소스 교체/3.OAuth 동의 화면.md"
-    },
-    {
-      "basename": "계정 정리",
-      "path": "업무/z.Archive/스카이워크/통합 정보/계정 정리.md"
     }
   ],
   "omittedPaths": [],
